@@ -1,0 +1,167 @@
+auth {
+
+    _id
+    user_id
+    password
+    updated_at
+
+}
+
+users {
+
+    _id
+    first_name
+    last_name
+    email
+    phone
+    profile_image
+    bio
+    created_at
+    updated_at
+    is_deleted
+    deleted_at
+
+}
+
+workspaces {
+
+    _id
+    owner_id
+    workspace_name
+    description
+    created_at
+    updated_at
+    is_deleted
+    deleted_at
+
+}
+
+projects {
+
+    _id
+    workspace_id
+    project_name
+    description
+    status
+    created_by
+    created_at
+    updated_at
+    is_deleted
+    deleted_at
+
+}
+
+datasets {
+
+    _id
+    project_id
+    dataset_name
+    file_name
+    file_path
+    file_type
+    file_size
+    uploaded_by
+    upload_date
+    current_version
+    created_at
+    updated_at
+    is_deleted
+    deleted_at
+
+}
+
+dataset_versions {
+
+    _id
+    dataset_id
+    version
+    version_type
+    file_path
+    created_at
+
+}
+
+experiments {
+
+    _id
+    project_id
+    dataset_version_id
+    algorithm
+    problem_type
+    parameters
+    metrics
+    training_time
+    created_at
+    updated_at
+    is_deleted
+    deleted_at
+
+}
+
+trained_models {
+
+    _id
+    experiment_id
+    model_name
+    model_version
+    model_path
+    accuracy
+    status
+    created_at
+    updated_at
+    is_deleted
+    deleted_at
+
+}
+
+deployments {
+
+    _id
+    model_id
+    endpoint_name
+    endpoint_url
+    status
+    deployed_at
+    updated_at
+    is_deleted
+    deleted_at
+
+}
+
+reports {
+
+    _id
+    project_id
+    report_name
+    report_type
+    file_path
+    generated_at
+    is_deleted
+    deleted_at
+
+}
+
+notifications {
+
+    _id
+    user_id
+    title
+    message
+    type
+    is_read
+    created_at
+    is_deleted
+    deleted_at
+
+}
+
+activity_logs {
+
+    _id
+    user_id
+    project_id
+    activity
+    activity_type
+    created_at
+
+}
