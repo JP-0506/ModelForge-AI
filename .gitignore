@@ -1,0 +1,162 @@
+# ==================================================
+# ModelForge AI - Root .gitignore
+# ==================================================
+
+###############################
+# Operating System Files
+###############################
+.DS_Store
+Thumbs.db
+desktop.ini
+
+###############################
+# Logs
+###############################
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+###############################
+# Environment Variables
+###############################
+.env
+.env.*
+!.env.example
+
+###############################
+# Node.js
+###############################
+node_modules/
+npm-cache/
+.pnpm-store/
+
+###############################
+# React (Vite)
+###############################
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+###############################
+# Node Backend
+###############################
+node_backend/node_modules/
+node_backend/uploads/
+node_backend/coverage/
+
+###############################
+# Python / Django
+###############################
+__pycache__/
+*.py[cod]
+*$py.class
+
+###############################
+# Django
+###############################
+django_backend/db.sqlite3
+django_backend/media/
+django_backend/staticfiles/
+django_backend/.pytest_cache/
+django_backend/.mypy_cache/
+
+###############################
+# Python Virtual Environment
+###############################
+venv/
+.venv/
+env/
+ENV/
+
+###############################
+# Python Build Files
+###############################
+build/
+dist/
+*.egg-info/
+.eggs/
+
+###############################
+# IDE
+###############################
+.vscode/
+.idea/
+
+###############################
+# Testing
+###############################
+coverage/
+.pytest_cache/
+.nyc_output/
+
+###############################
+# Docker
+###############################
+docker/**/*.log
+
+###############################
+# MongoDB
+###############################
+*.wt
+*.lock
+mongod.lock
+
+###############################
+# Uploaded Files
+###############################
+uploads/
+media/
+temp/
+
+###############################
+# Reports Generated
+###############################
+reports/
+generated_reports/
+
+###############################
+# Model Files
+###############################
+models/
+*.pkl
+*.joblib
+*.h5
+*.onnx
+*.pt
+
+###############################
+# Jupyter
+###############################
+.ipynb_checkpoints/
+
+###############################
+# Cache
+###############################
+.cache/
+.parcel-cache/
+
+###############################
+# Miscellaneous
+###############################
+*.tmp
+*.bak
+*.swp
+
+###############################
+# Postman
+###############################
+postman/*.postman_environment.json
+
+###############################
+# Mac
+###############################
+.AppleDouble
+.LSOverride
+
+###############################
+# Windows
+###############################
+ehthumbs.db
