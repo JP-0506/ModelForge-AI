@@ -46,6 +46,11 @@ frontend/.vite/
 node_backend/node_modules/
 node_backend/uploads/
 node_backend/coverage/
+# Ignore Node package files
+node_backend/package.json
+node_backend/package-lock.json
+# Ignore all text files under node_backend
+node_backend/**/*.txt
 
 ###############################
 # Python / Django
@@ -118,9 +123,8 @@ reports/
 generated_reports/
 
 ###############################
-# Model Files
+# ML Model Files
 ###############################
-models/
 *.pkl
 *.joblib
 *.h5
