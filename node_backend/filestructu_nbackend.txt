@@ -1,0 +1,237 @@
+node_backend/
+│
+├── src/
+│   │
+│   ├── config/
+│   │   ├── db.js                  # MongoDB Connection
+│   │   ├── jwt.js                 # JWT Configuration
+│   │   ├── multer.js              # File Upload Configuration
+│   │   ├── mail.js                # Nodemailer Configuration
+│   │   ├── cors.js                # CORS Configuration
+│   │   ├── logger.js              # Morgan/Winston Logger
+│   │   └── swagger.js             # Swagger API Documentation (Optional)
+│   │
+│   ├── controllers/
+│   │   ├── AuthController.js
+│   │   ├── UserController.js
+│   │   ├── WorkspaceController.js
+##  │   ├── MemberController.js             #"remove "
+##  │   ├── InvitationController.js         #"remove "
+│   │   ├── ProjectController.js
+│   │   ├── DatasetController.js
+│   │   ├── ExperimentController.js
+│   │   ├── ReportController.js
+│   │   ├── DeploymentController.js
+│   │   ├── NotificationController.js
+│   │   └── CommentController.js
+│   │
+│   ├── services/
+│   │   ├── AuthService.js
+│   │   ├── UserService.js
+│   │   ├── WorkspaceService.js
+│   │   ├── MemberService.js            #"remove"
+│   │   ├── InvitationService.js        #"remove"
+│   │   ├── ProjectService.js
+│   │   ├── DatasetService.js
+│   │   ├── DjangoClient.js
+│   │   ├── ExperimentService.js
+│   │   ├── ReportService.js
+│   │   ├── DeploymentService.js
+│   │   ├── NotificationService.js
+│   │   └── CommentService.js
+│   │
+│   ├── repositories/
+│   │   ├── AuthRepository.js
+│   │   ├── UserRepository.js
+│   │   ├── WorkspaceRepository.js
+│   │   ├── MemberRepository.js         #"remove"
+│   │   ├── InvitationRepository.js     #"remove"
+│   │   ├── ProjectRepository.js
+│   │   ├── DatasetRepository.js
+│   │   ├── ExperimentRepository.js
+│   │   ├── ReportRepository.js
+│   │   ├── DeploymentRepository.js
+│   │   ├── NotificationRepository.js
+│   │   └── CommentRepository.js
+│   │
+│   ├── routes/
+│   │   ├── auth.routes.js
+│   │   ├── user.routes.js
+│   │   ├── workspace.routes.js
+│   │   ├── member.routes.js            #"remove"
+│   │   ├── invitation.routes.js        #"remove"
+│   │   ├── project.routes.js
+│   │   ├── dataset.routes.js
+│   │   ├── experiment.routes.js
+│   │   ├── deployment.routes.js
+│   │   ├── report.routes.js
+│   │   ├── notification.routes.js
+│   │   ├── comment.routes.js
+│   │   ├── activity.routes.js
+│   │   └── index.js               # Combines all routes
+│   │
+│   ├── middleware/
+│   │   ├── auth.middleware.js         # JWT Verification
+│   │   ├── upload.middleware.js       # Multer Upload Middleware
+│   │   ├── validation.middleware.js   # Request Validation Handler
+│   │   ├── error.middleware.js        # Global Error Handler
+│   │   ├── logger.middleware.js       # Request Logging
+│   │   ├── rateLimiter.middleware.js  # API Rate Limiting
+│   │   └── notFound.middleware.js     # 404 Handler
+│   │
+│   ├──validators/
+│   │  ├── auth.validator.js
+│   │  ├── user.validator.js
+│   │  ├── workspace.validator.js
+│   │  ├── member.validator.js          #"remove"
+│   │  ├── invitation.validator.js      #"remove"
+│   │  ├── project.validator.js
+│   │  ├── dataset.validator.js
+│   │  ├── experiment.validator.js
+│   │  ├── deployment.validator.js
+│   │  ├── report.validator.js
+│   │  ├── notification.validator.js
+│   │  └── comment.validator.js
+│   │
+│   ├── models/
+│   │   ├── Auth.js
+│   │   ├── User.js
+│   │   ├── Workspace.js    
+│   │   ├── Member.js           #"remove"
+│   │   ├── Invitation.js       #"remove" 
+│   │   ├── Project.js
+│   │   ├── Dataset.js
+│   │   ├── DatasetVersion.js
+│   │   ├── ValidationResult.js     #"remove"
+│   │   ├── AIAnalysis.js           #"remove"
+│   │   ├── Experiment.js
+│   │   ├── TrainedModel.js
+│   │   ├── Deployment.js
+│   │   ├── Report.js
+│   │   ├── Notification.js
+│   │   ├── Comment.js
+│   │   └── ActivityLog.js
+│   │
+│   ├── uploads/
+│   │
+│   ├── app.js
+│   └── server.js
+│
+├── tests/
+├── .env
+├── package.json
+├── README.md
+└── nodemon.json
+
+
+-----------new filestructure
+
+node_backend/
+│
+├── src/
+│   │
+│   ├── config/
+│   │   ├── db.js                         ✅
+│   │   ├── jwt.js                        ✅
+│   │   ├── multer.js                     ✅
+│   │   ├── mail.js
+│   │   ├── cors.js                       ✅
+│   │   ├── logger.js
+│   │   └── swagger.js
+│   │
+│   ├── controllers/
+│   │   ├── AuthController.js             ✅
+│   │   ├── UserController.js
+│   │   ├── WorkspaceController.js
+│   │   ├── ProjectController.js
+│   │   ├── DatasetController.js
+│   │   ├── ExperimentController.js
+│   │   ├── ReportController.js
+│   │   ├── DeploymentController.js
+│   │   ├── NotificationController.js
+│   │   └── CommentController.js
+│   │
+│   ├── services/
+│   │   ├── AuthService.js                ✅
+│   │   ├── UserService.js
+│   │   ├── WorkspaceService.js
+│   │   ├── ProjectService.js
+│   │   ├── DatasetService.js
+│   │   ├── DjangoClient.js
+│   │   ├── ExperimentService.js
+│   │   ├── ReportService.js
+│   │   ├── DeploymentService.js
+│   │   ├── NotificationService.js
+│   │   └── CommentService.js
+│   │
+│   ├── repositories/
+│   │   ├── AuthRepository.js             ✅
+│   │   ├── UserRepository.js
+│   │   ├── WorkspaceRepository.js
+│   │   ├── ProjectRepository.js
+│   │   ├── DatasetRepository.js
+│   │   ├── ExperimentRepository.js
+│   │   ├── ReportRepository.js
+│   │   ├── DeploymentRepository.js
+│   │   ├── NotificationRepository.js
+│   │   └── CommentRepository.js
+│   │
+│   ├── routes/
+│   │   ├── AuthRoutes.js                 ✅
+│   │   ├── UserRoutes.js
+│   │   ├── WorkspaceRoutes.js
+│   │   ├── ProjectRoutes.js
+│   │   ├── DatasetRoutes.js
+│   │   ├── ExperimentRoutes.js
+│   │   ├── DeploymentRoutes.js
+│   │   ├── ReportRoutes.js
+│   │   ├── NotificationRoutes.js
+│   │   ├── CommentRoutes.js
+│   │   ├── ActivityRoutes.js
+│   │   └── index.js                      ✅
+│   │
+│   ├── middleware/
+│   │   ├── AuthMiddleware.js
+│   │   ├── UploadMiddleware.js
+│   │   ├── ValidationMiddleware.js       ✅
+│   │   ├── ErrorMiddleware.js            ✅
+│   │   ├── LoggerMiddleware.js
+│   │   ├── RateLimiterMiddleware.js
+│   │   └── NotFoundMiddleware.js         ✅
+│   │
+│   ├── validators/
+│   │   ├── AuthValidator.js              ✅
+│   │   ├── UserValidator.js
+│   │   ├── WorkspaceValidator.js
+│   │   ├── ProjectValidator.js
+│   │   ├── DatasetValidator.js
+│   │   ├── ExperimentValidator.js
+│   │   ├── DeploymentValidator.js
+│   │   ├── ReportValidator.js
+│   │   ├── NotificationValidator.js
+│   │   └── CommentValidator.js
+│   │
+│   ├── models/
+│   │   ├── Auth.js                       ✅
+│   │   ├── User.js                       ✅
+│   │   ├── Workspace.js
+│   │   ├── Project.js
+│   │   ├── Dataset.js
+│   │   ├── DatasetVersion.js
+│   │   ├── Experiment.js
+│   │   ├── TrainedModel.js
+│   │   ├── Deployment.js
+│   │   ├── Report.js
+│   │   ├── Notification.js
+│   │   ├── Comment.js
+│   │   └── ActivityLog.js
+│   │
+│   ├── uploads/
+│   │
+│   ├── app.js                            ✅
+│   └── server.js                         ✅
+│
+├── tests/
+├── .env                                  ✅
+├── package.json                          ✅
+├── README.md
