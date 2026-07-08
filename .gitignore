@@ -67,6 +67,7 @@ django_backend/media/
 django_backend/staticfiles/
 django_backend/.pytest_cache/
 django_backend/.mypy_cache/
+django_backend/**/*.txt
 
 ###############################
 # Python Virtual Environment
