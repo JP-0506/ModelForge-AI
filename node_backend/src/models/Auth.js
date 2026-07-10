@@ -20,6 +20,7 @@ const authSchema = new mongoose.Schema(
       updatedAt: "updated_at",
       createdAt: false,
     },
+    versionKey: false,
   }
 );
 
