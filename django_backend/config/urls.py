@@ -11,7 +11,7 @@ def home(request):
     })
 
 urlpatterns = [
-     path("", home),
+    path("", home),
     path("admin/", admin.site.urls),
 
     path("api/ml/", include("ml_engine.urls")),
