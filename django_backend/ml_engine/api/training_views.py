@@ -2,10 +2,11 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+
 import traceback
-from ml_engine.services.training.training_service import (
-    TrainingService,
-)
+
+from ml_engine.serializers.training_serializer import TrainingSerializer
+from ml_engine.services.training.training_service import TrainingService
 
 
 class TrainingAPIView(APIView):
@@ -35,30 +36,40 @@ class TrainingAPIView(APIView):
 
         try:
 
-            dataset_path = request.data.get(
-                "dataset_path",
+            # ==========================================
+            # Validate Request
+            # ==========================================
+
+            serializer = TrainingSerializer(
+                data=request.data,
             )
 
-            model_path = request.data.get(
-                "model_path",
+            serializer.is_valid(
+                raise_exception=True,
             )
 
-            problem_type = request.data.get(
-                "problem_type",
-            )
+            validated_data = serializer.validated_data
 
-            algorithm = request.data.get(
-                "algorithm",
-            )
+            dataset_path = validated_data["dataset_path"]
 
-            target_column = request.data.get(
+            model_path = validated_data["model_path"]
+
+            problem_type = validated_data["problem_type"]
+
+            algorithm = validated_data["algorithm"]
+
+            target_column = validated_data.get(
                 "target_column",
             )
 
-            parameters = request.data.get(
+            parameters = validated_data.get(
                 "parameters",
                 {},
             )
+
+            # ==========================================
+            # Train Model
+            # ==========================================
 
             result = self.training_service.train_model(
                 dataset_path=dataset_path,
@@ -68,6 +79,10 @@ class TrainingAPIView(APIView):
                 model_path=model_path,
                 parameters=parameters,
             )
+
+            # ==========================================
+            # Success Response
+            # ==========================================
 
             return Response(
                 {
@@ -79,7 +94,9 @@ class TrainingAPIView(APIView):
             )
 
         except Exception as error:
+
             traceback.print_exc()
+
             return Response(
                 {
                     "success": False,
