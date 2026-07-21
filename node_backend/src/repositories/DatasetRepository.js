@@ -28,6 +28,15 @@ class DatasetRepository {
     });
   }
 
+  // Get DatasetVersion By ID
+  async getDatasetVersionById(
+    datasetVersionId,
+  ) {
+    return await DatasetVersion.findById(
+      datasetVersionId,
+    );
+  }
+
   // Get Latest Dataset Version
   async getLatestDatasetVersion(datasetId) {
     return await DatasetVersion.findOne({
