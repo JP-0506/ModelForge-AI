@@ -40,6 +40,8 @@ const projectSchema = new mongoose.Schema(
         "Dataset Uploaded",
         "Experiment Created",
         "Training",
+        "Training Completed",
+        "Model Compared",
         "Completed",
         "Deployed",
       ],
