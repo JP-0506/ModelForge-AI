@@ -4,6 +4,7 @@ import UserRoutes from "./UserRoutes.js";
 import WorkspaceRoutes from "./WorkspaceRoutes.js";
 import ProjectRoutes from "./ProjectRoutes.js";
 import DatasetRoutes from "./DatasetRoutes.js";
+import MLTrainingRoutes from "./MLTrainingRoutes.js";
 
 const router = Router();
 
@@ -27,6 +28,13 @@ router.use("/api/workspaces", WorkspaceRoutes);
 // Project Routes
 router.use("/api/projects", ProjectRoutes);
 
+// Dataset Routes
 router.use("/api/datasets", DatasetRoutes);
+
+// Machine Learning Model Training Routes
+router.use(
+  "/api/training",
+  MLTrainingRoutes,
+);
 
 export default router;
