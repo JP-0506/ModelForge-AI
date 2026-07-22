@@ -13,11 +13,12 @@ class ModelLoader:
         model_path,
     ):
         """
-        Load a trained model from disk.
+        Load a trained Machine Learning model.
 
         Parameters
         ----------
         model_path : str
+            Path to the trained model.
 
         Returns
         -------
@@ -28,8 +29,12 @@ class ModelLoader:
         if not os.path.exists(
             model_path,
         ):
-            raise FileNotFoundError(f"Model not found: {model_path}")
+            raise FileNotFoundError(f"Model file not found: {model_path}")
 
-        return joblib.load(
-            model_path,
-        )
+        try:
+            return joblib.load(
+                model_path,
+            )
+
+        except Exception as error:
+            raise RuntimeError(f"Failed to load model: {error}") from error
