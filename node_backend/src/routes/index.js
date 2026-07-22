@@ -5,6 +5,7 @@ import WorkspaceRoutes from "./WorkspaceRoutes.js";
 import ProjectRoutes from "./ProjectRoutes.js";
 import DatasetRoutes from "./DatasetRoutes.js";
 import MLTrainingRoutes from "./MLTrainingRoutes.js";
+import MLComparisonRoutes from "./MLComparisonRoutes.js";
 
 const router = Router();
 
@@ -35,6 +36,12 @@ router.use("/api/datasets", DatasetRoutes);
 router.use(
   "/api/training",
   MLTrainingRoutes,
+);
+
+// Machine Learning Comparison Routes
+router.use(
+  "/api/ml/comparison",
+  MLComparisonRoutes,
 );
 
 export default router;
