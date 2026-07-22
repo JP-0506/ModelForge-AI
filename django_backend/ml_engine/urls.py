@@ -5,6 +5,7 @@ from ml_engine.api.cleaning_views import DatasetCleaningView
 from ml_engine.api.feature_engineering_views import FeatureEngineeringView
 from ml_engine.api.eda_views import EDAView
 from ml_engine.api.training_views import TrainingAPIView
+from ml_engine.api.comparison_views import ComparisonAPIView
 
 urlpatterns = [
     path(
@@ -32,9 +33,18 @@ urlpatterns = [
         EDAView.as_view(),
         name="dataset-eda",
     ),
+
+    # Model Training
     path(
         "train/",
         TrainingAPIView.as_view(),
         name="train-model",
+    ),
+
+    # Model Comparison
+    path(
+        "compare/",
+        ComparisonAPIView.as_view(),
+        name="compare-models",
     ),
 ]
