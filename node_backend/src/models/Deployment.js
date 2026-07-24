@@ -40,10 +40,6 @@ const deploymentSchema = new mongoose.Schema(
             default: false,
         },
 
-        deleted_at: {
-            type: Date,
-            default: null,
-        },
     },
     {
         timestamps: {
