@@ -54,8 +54,8 @@ class DeploymentValidator:
         # ----------------------------------
         # Validate Predict Method
         # ----------------------------------
-        
-        if not hasattr(model, "predict"):
+
+        if not hasattr(model, "predict") or not callable(model.predict):
             raise ValueError("Model does not support prediction.")
 
         return True
