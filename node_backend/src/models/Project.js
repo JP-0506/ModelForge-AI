@@ -43,7 +43,7 @@ const projectSchema = new mongoose.Schema(
         "Training Completed",
         "Model Compared",
         "Completed",
-        "Deployed",
+        "Model Deployed",
       ],
     },
 
