@@ -6,8 +6,11 @@ from ml_engine.api.feature_engineering_views import FeatureEngineeringView
 from ml_engine.api.eda_views import EDAView
 from ml_engine.api.training_views import TrainingAPIView
 from ml_engine.api.comparison_views import ComparisonAPIView
+from ml_engine.api.deployment_views import DeploymentAPIView
+from ml_engine.api.prediction_views import PredictionAPIView
 
 urlpatterns = [
+    
     path(
         "datasets/upload/",
         DatasetUploadView.as_view(),
@@ -46,5 +49,19 @@ urlpatterns = [
         "compare/",
         ComparisonAPIView.as_view(),
         name="compare-models",
+    ),
+    
+    # Model Deploymen
+    path(
+        "deploy/",
+        DeploymentAPIView.as_view(),
+        name="deploy-model",
+    ),
+    
+    # Machine Learning Prediction API
+    path(
+        "predict/",
+        PredictionAPIView.as_view(),
+        name="predict-model",
     ),
 ]
