@@ -8,6 +8,7 @@ import MLTrainingRoutes from "./MLTrainingRoutes.js";
 import MLComparisonRoutes from "./MLComparisonRoutes.js";
 import MLDeploymentRoutes from "./MLDeploymentRoutes.js";
 import MLPredictionRoutes from "./MLPredictionRoutes.js";
+import ReportRoutes from "./ReportRoutes.js";
 
 const router = Router();
 
@@ -56,6 +57,12 @@ router.use(
 router.use(
   "/api/ml/predict",
   MLPredictionRoutes,
+);
+
+// Report Routes
+router.use(
+  "/api/ml/report",
+  ReportRoutes,
 );
 
 export default router;
