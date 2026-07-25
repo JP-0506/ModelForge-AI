@@ -6,6 +6,8 @@ import ProjectRoutes from "./ProjectRoutes.js";
 import DatasetRoutes from "./DatasetRoutes.js";
 import MLTrainingRoutes from "./MLTrainingRoutes.js";
 import MLComparisonRoutes from "./MLComparisonRoutes.js";
+import MLDeploymentRoutes from "./MLDeploymentRoutes.js";
+import MLPredictionRoutes from "./MLPredictionRoutes.js";
 
 const router = Router();
 
@@ -42,6 +44,18 @@ router.use(
 router.use(
   "/api/ml/comparison",
   MLComparisonRoutes,
+);
+
+// Machine Learning Deployment Routes
+router.use(
+  "/api/ml/deployment",
+  MLDeploymentRoutes,
+);
+
+// Machine Learning Prediction Routes
+router.use(
+  "/api/ml/predict",
+  MLPredictionRoutes,
 );
 
 export default router;
