@@ -8,6 +8,7 @@ from ml_engine.api.training_views import TrainingAPIView
 from ml_engine.api.comparison_views import ComparisonAPIView
 from ml_engine.api.deployment_views import DeploymentAPIView
 from ml_engine.api.prediction_views import PredictionAPIView
+from ml_engine.api.report_views import ReportAPIView
 
 urlpatterns = [
     
@@ -63,5 +64,12 @@ urlpatterns = [
         "predict/",
         PredictionAPIView.as_view(),
         name="predict-model",
+    ),
+
+    # Report Generation
+    path(
+        "report/",
+        ReportAPIView.as_view(),
+        name="report",
     ),
 ]
