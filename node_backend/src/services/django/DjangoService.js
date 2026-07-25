@@ -92,22 +92,23 @@ class DjangoService {
   async featureEngineering(
     datasetId,
     version,
-    featureEngineeringOptions
+    featureEngineeringOptions,
+    targetColumn
   ) {
     const response = await axios.post(
       `${this.baseURL}/datasets/feature-engineering/`,
       {
         dataset_id: datasetId,
         version,
-        feature_engineering_options:
-          featureEngineeringOptions,
+        feature_engineering_options: featureEngineeringOptions,
+        target_column: targetColumn
       }
     );
 
     return response.data;
   }
 
-  // ==============================
+  // ============================== 
   // EDA
   // ==============================
   async generateEDA(
