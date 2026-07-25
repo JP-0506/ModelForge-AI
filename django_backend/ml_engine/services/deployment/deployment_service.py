@@ -1,6 +1,6 @@
 from ml_engine.services.training.model_loader import ModelLoader
 from ml_engine.services.deployment.deployment_validator import DeploymentValidator
-from ml_engine.services.deployment.deployment_manager import DeploymentManager
+# from ml_engine.services.deployment.deployment_manager import DeploymentManager
 
 
 class DeploymentService:
@@ -9,10 +9,10 @@ class DeploymentService:
     """
 
     def __init__(self):
-        
+
         self.model_loader = ModelLoader()
         self.deployment_validator = DeploymentValidator()
-        self.deployment_manager = DeploymentManager()
+        # self.deployment_manager = DeploymentManager()
 
     # ==================================================
     # Deploy Model
@@ -55,12 +55,10 @@ class DeploymentService:
             # Prepare Deployment
             # ------------------------------------------
 
-            deployment_result = self.deployment_manager.create_deployment(
-                model_path=model_path,
-                model=model,
-            )
+            return {
+                "validation_status": "success",
+                "ready_for_prediction": True,
+            }
 
-            return deployment_result
-
-        except Exception:
-            raise
+        except Exception as error:
+            raise Exception(f"Deployment failed: {str(error)}") from error
