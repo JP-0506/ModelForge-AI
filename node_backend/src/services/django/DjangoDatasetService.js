@@ -1,7 +1,7 @@
 import axios from "axios";
 import FormData from "form-data";
 
-class DjangoService {
+class DjangoDatasetService {
   constructor() {
     this.baseURL = process.env.DJANGO_API_URL;
   }
@@ -46,6 +46,28 @@ class DjangoService {
     );
 
     return response.data;
+  }
+
+  // ==============================
+  // Dataset Validation
+  // ==============================
+  async validateDataset(
+    datasetId,
+    version,
+    datasetType,
+  ) {
+
+    const response = await axios.post(
+      `${this.baseURL}/datasets/validation/`,
+      {
+        dataset_id: datasetId,
+        version,
+        dataset_type: datasetType,
+      },
+    );
+
+    return response.data;
+
   }
 
   // ==============================
@@ -129,4 +151,4 @@ class DjangoService {
 
 
 
-export default new DjangoService();
+export default new DjangoDatasetService();
