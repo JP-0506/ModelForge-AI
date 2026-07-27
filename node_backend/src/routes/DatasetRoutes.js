@@ -25,6 +25,18 @@ router.post(
   DatasetController.uploadDataset
 );
 
+// ==========================================
+// Validate Dataset
+// ==========================================
+
+router.post(
+  "/:datasetId/validation",
+  AuthMiddleware,
+  DatasetController.validateDataset.bind(
+  DatasetController,
+  ),
+);
+
 // ===========================================
 // Dataset Profiling
 // ===========================================
