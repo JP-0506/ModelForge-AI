@@ -25,6 +25,7 @@ class FeatureEngineeringView(APIView):
 
             dataset_id = request.data.get("dataset_id")
             version = request.data.get("version")
+            target_column = request.data.get("target_column")
 
             feature_engineering_options = request.data.get(
                 "feature_engineering_options",
@@ -41,13 +42,12 @@ class FeatureEngineeringView(APIView):
                     "Version is required."
                 )
 
-            result = (
-                self.feature_engineering_service.process(
-                    dataset_id=dataset_id,
-                    version=version,
-                    feature_engineering_options=feature_engineering_options,
-                )
-            )
+            result = self.feature_engineering_service.process(
+                dataset_id=dataset_id,
+                version=version,
+                feature_engineering_options=feature_engineering_options,
+                target_column=target_column,
+            )            
 
             return success_response(
                 message="Feature engineering completed successfully.",
