@@ -1,7 +1,7 @@
 import DatasetRepository from "../repositories/DatasetRepository.js";
 import ProjectRepository from "../repositories/ProjectRepository.js";
 import WorkspaceRepository from "../repositories/WorkspaceRepository.js";
-import DjangoService from "./django/DjangoService.js";
+import DjangoDatasetService from "./django/DjangoDatasetService.js";
 
 class DatasetService {
   // Upload New Dataset
@@ -94,14 +94,14 @@ class DatasetService {
     // =====================================
 
     // const djangoResponse =
-    //   await DjangoService.uploadDataset(
+    //   await DjangoDatasetService.uploadDataset(
     //     file_path,
     //     dataset._id,
     //     1
     //   );
 
     const djangoResponse =
-      await DjangoService.uploadDataset(
+      await DjangoDatasetService.uploadDataset(
         uploaded_file,
         dataset._id,
         1
@@ -132,6 +132,47 @@ class DatasetService {
     );
 
     return dataset;
+  }
+
+  // ==========================================
+  // Validate Dataset
+  // ==========================================
+
+  async validateDataset(
+    datasetId,
+    datasetType,
+  ) {
+
+    // Get dataset
+    const dataset =
+      await DatasetRepository.getDatasetById(
+        datasetId,
+      );
+
+    if (
+      !dataset
+    ) {
+      throw new Error(
+        "Dataset not found.",
+      );
+    }
+
+    // Validate dataset type
+    if (
+      !datasetType
+    ) {
+      throw new Error(
+        "Dataset type is required.",
+      );
+    }
+
+    // Call Django Validation Service
+    return await DjangoDatasetService.validateDataset(
+      datasetId,
+      dataset.current_version,
+      datasetType,
+    );
+
   }
 
   // Upload New Dataset Version
@@ -252,7 +293,7 @@ class DatasetService {
 
     // Call Django
     const djangoResponse =
-      await DjangoService.profileDataset(
+      await DjangoDatasetService.profileDataset(
         dataset_id,
         version
       );
@@ -337,7 +378,7 @@ class DatasetService {
 
     // Call Django
     const djangoResponse =
-      await DjangoService.cleanDataset(
+      await DjangoDatasetService.cleanDataset(
         dataset_id,
         version,
         cleaning_options
@@ -374,6 +415,7 @@ class DatasetService {
       dataset_id,
       version,
       feature_engineering_options,
+      target_column
     } = featureData;
 
     // Verify Dataset
@@ -429,10 +471,11 @@ class DatasetService {
 
     // Call Django
     const djangoResponse =
-      await DjangoService.featureEngineering(
+      await DjangoDatasetService.featureEngineering(
         dataset_id,
         version,
-        feature_engineering_options
+        feature_engineering_options,
+        target_column
       );
 
     // Update MongoDB
@@ -520,7 +563,7 @@ class DatasetService {
 
     // Call Django
     const djangoResponse =
-      await DjangoService.generateEDA(
+      await DjangoDatasetService.generateEDA(
         dataset_id,
         version
       );
