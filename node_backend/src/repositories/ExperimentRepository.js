@@ -11,15 +11,16 @@ class ExperimentRepository {
             experimentData,
         );
     }
-
-
+    
     //  Find experiment by ID.
-
     async findById(
         experimentId,
     ) {
-        return await Experiment.findById(
-            experimentId,
+        return await Experiment.findOne(
+            {
+                _id: experimentId,
+                is_deleted: false,
+            },
         );
     }
 
