@@ -3,7 +3,6 @@ import pandas as pd
 from ml_engine.utils.file_utils import FileUtils
 
 from ml_engine.services.feature_engineering.encoder import Encoder
-from ml_engine.services.feature_engineering.scaler import Scaler
 from ml_engine.services.feature_engineering.selector import Selector
 from ml_engine.services.feature_engineering.feature_generator import (
     FeatureGenerator,
@@ -19,7 +18,6 @@ class FeatureEngineeringService:
         self.file_utils = FileUtils()
 
         self.encoder = Encoder()
-        self.scaler = Scaler()
         self.selector = Selector()
         self.feature_generator = FeatureGenerator()
         self.transformer = Transformer()
@@ -29,6 +27,7 @@ class FeatureEngineeringService:
         dataset_id,
         version,
         feature_engineering_options,
+        target_column,
     ):
         """
         Execute Feature Engineering Pipeline.
@@ -65,20 +64,6 @@ class FeatureEngineeringService:
         dataframe = self.encoder.apply_encoding(
             dataframe,
             encoding,
-        )
-
-        # -------------------------
-        # Scaling
-        # -------------------------
-
-        scaling = feature_engineering_options.get(
-            "scaling",
-            "none",
-        )
-
-        dataframe = self.scaler.apply_scaling(
-            dataframe,
-            scaling,
         )
 
         # -------------------------
@@ -137,9 +122,9 @@ class FeatureEngineeringService:
                 ),
             )
 
-        # -------------------------
+        # --------------------------------
         # Save Feature Engineered Dataset
-        # -------------------------
+        # --------------------------------
 
         feature_engineered_file_path = (
             self.file_utils.get_dataset_version_path(
