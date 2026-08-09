@@ -1,0 +1,155 @@
+{
+    "dataset_summary": {
+        "total_rows": 20,
+        "total_columns": 6,
+        "numerical_columns": 6,
+        "categorical_columns": 0,
+        "boolean_columns": 0,
+        "date_columns": 0,
+        "text_columns": 0,
+        "missing_values": 0,
+        "duplicate_rows": 0
+    },
+    "dataset_statistics": {
+        "total_cells": 120,
+        "empty_cells": 0,
+        "empty_cell_percentage": 0.0,
+        "duplicate_rows": 0,
+        "duplicate_percentage": 0.0,
+        "avg_missing_percentage": 0.0
+    },
+    "dataset_quality": {
+        "quality_score": 100,
+        "quality_badge": "Excellent",
+        "factors": {
+            "missing_cell_pct": 0.0,
+            "duplicate_row_pct": 0.0,
+            "empty_cells_count": 0
+        }
+    },
+    "data_type_distribution": {
+        "numeric": 6,
+        "categorical": 0,
+        "boolean": 0,
+        "date": 0,
+        "text": 0
+    },
+    "missing_value_analysis": {
+        "total_missing_values": 0,
+        "missing_percentage": 0.0,
+        "missing_by_column": [
+            {
+                "column": "Area",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "Bedrooms",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "Bathrooms",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "Age",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "Parking",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "Price",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            }
+        ]
+    },
+    "sample_data_preview": [
+        {
+            "Area": 1200,
+            "Bedrooms": 2,
+            "Bathrooms": 2,
+            "Age": 10,
+            "Parking": 1,
+            "Price": 180000
+        },
+        {
+            "Area": 1500,
+            "Bedrooms": 3,
+            "Bathrooms": 2,
+            "Age": 8,
+            "Parking": 1,
+            "Price": 220000
+        },
+        {
+            "Area": 1800,
+            "Bedrooms": 3,
+            "Bathrooms": 3,
+            "Age": 5,
+            "Parking": 2,
+            "Price": 270000
+        },
+        {
+            "Area": 2000,
+            "Bedrooms": 4,
+            "Bathrooms": 3,
+            "Age": 4,
+            "Parking": 2,
+            "Price": 310000
+        },
+        {
+            "Area": 2200,
+            "Bedrooms": 4,
+            "Bathrooms": 3,
+            "Age": 3,
+            "Parking": 2,
+            "Price": 340000
+        },
+        {
+            "Area": 2500,
+            "Bedrooms": 4,
+            "Bathrooms": 4,
+            "Age": 2,
+            "Parking": 2,
+            "Price": 390000
+        },
+        {
+            "Area": 2700,
+            "Bedrooms": 5,
+            "Bathrooms": 4,
+            "Age": 2,
+            "Parking": 3,
+            "Price": 430000
+        },
+        {
+            "Area": 3000,
+            "Bedrooms": 5,
+            "Bathrooms": 5,
+            "Age": 1,
+            "Parking": 3,
+            "Price": 480000
+        },
+        {
+            "Area": 3200,
+            "Bedrooms": 5,
+            "Bathrooms": 5,
+            "Age": 1,
+            "Parking": 3,
+            "Price": 510000
+        },
+        {
+            "Area": 3500,
+            "Bedrooms": 6,
+            "Bathrooms": 5,
+            "Age": 1,
+            "Parking": 3,
+            "Price": 560000
+        }
+    ]
+}

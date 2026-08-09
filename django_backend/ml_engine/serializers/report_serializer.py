@@ -12,6 +12,7 @@ class ReportSerializer(
         "training",
         "comparison",
         "deployment",
+        "validation",
     ]
 
     report_type = serializers.ChoiceField(

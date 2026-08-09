@@ -1,0 +1,108 @@
+/* ============================================================
+   ModelForge AI — Responsive Breakpoints
+   ============================================================ */
+
+/*
+  Breakpoint Scale:
+  xs:  0 — 479px      (small mobile)
+  sm:  480 — 767px    (mobile)
+  md:  768 — 1023px   (tablet)
+  lg:  1024 — 1279px  (small desktop)
+  xl:  1280 — 1535px  (desktop)
+  2xl: 1536px+        (large desktop)
+*/
+
+/* ── Responsive Grid ── */
+@media (max-width: 1280px) {
+  .grid-4 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  :root {
+    --content-padding: var(--space-6);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 { grid-template-columns: 1fr; }
+  .grid-auto-fit { grid-template-columns: 1fr; }
+  :root {
+    --content-padding: var(--space-4);
+    --sidebar-width: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --content-padding: var(--space-3);
+    --font-size-7xl: 3rem;
+    --font-size-6xl: 2.5rem;
+    --font-size-5xl: 2.25rem;
+    --font-size-4xl: 2rem;
+    --font-size-3xl: 1.5rem;
+  }
+}
+
+/* ── Visibility Utilities ── */
+.hidden-mobile {
+  display: block;
+}
+
+.show-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+  .show-mobile {
+    display: block !important;
+  }
+  .hidden-mobile-flex {
+    display: none !important;
+  }
+  .show-mobile-flex {
+    display: flex !important;
+  }
+}
+
+/* ── Sidebar Responsive ── */
+@media (max-width: 1024px) {
+  .sidebar-floating {
+    transform: translateX(-100%);
+  }
+  .sidebar-floating.sidebar-open {
+    transform: translateX(0);
+  }
+  .main-content {
+    margin-left: 0 !important;
+  }
+}
+
+/* ── Navbar Responsive ── */
+@media (max-width: 768px) {
+  .navbar-search {
+    display: none;
+  }
+}
+
+/* ── Text Responsive ── */
+@media (max-width: 768px) {
+  .text-display-xl { font-size: var(--font-size-5xl); }
+  .text-display-lg { font-size: var(--font-size-4xl); }
+  .text-display-md { font-size: var(--font-size-3xl); }
+  .text-title-xl   { font-size: var(--font-size-3xl); }
+  .text-title-lg   { font-size: var(--font-size-2xl); }
+}
+
+/* ── Card Responsive ── */
+@media (max-width: 640px) {
+  .card {
+    padding: var(--space-5);
+  }
+}

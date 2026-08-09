@@ -98,6 +98,26 @@ class DeploymentRepository {
     }
 
     // ==========================================
+    // Find Deployments By Trained Model IDs
+    // ==========================================
+
+    async findByTrainedModelIds(
+        trainedModelIds,
+    ) {
+        return await Deployment.find(
+            {
+                trained_model_id: { $in: trainedModelIds },
+                is_deleted: false,
+            },
+        )
+            .populate({
+                path: "trained_model_id",
+                populate: { path: "experiment_id" },
+            })
+            .sort({ created_at: -1 });
+    }
+
+    // ==========================================
     // Soft Delete Deployment
     // ==========================================
 
@@ -119,4 +139,4 @@ class DeploymentRepository {
     }
 }
 
-export default new DeploymentRepository();
+export default new DeploymentRepository();

@@ -54,6 +54,12 @@ class DatasetService:
             original_file_path
         )
 
+        # Dataset must contain at least one row
+        if dataframe.empty:
+            raise ValueError(
+                "Cannot upload an empty dataset. Please upload a dataset containing at least one row."
+            )
+
         # Return metadata
         return {
             "original_file_path": str(
@@ -63,8 +69,10 @@ class DatasetService:
             "file_size": uploaded_file.size,
             "rows": dataframe.shape[0],
             "columns": dataframe.shape[1],
+            "column_names": dataframe.columns.tolist(),
             "processing_status": "uploaded",
         }
+
 
     def read_dataset(
         self,
@@ -77,13 +85,20 @@ class DatasetService:
         extension = str(file_path).split(".")[-1].lower()
 
         if extension == "csv":
-            return pd.read_csv(file_path)
+            try:
+                return pd.read_csv(file_path)
+            except pd.errors.EmptyDataError:
+                raise ValueError(
+                    "Cannot upload an empty dataset. The uploaded CSV file contains no data."
+                )
 
-        elif extension in [
-            "xlsx",
-            "xls",
-        ]:
-            return pd.read_excel(file_path)
+        elif extension in ["xlsx", "xls"]:
+            dataframe = pd.read_excel(file_path)
+            if dataframe.empty:
+                raise ValueError(
+                    "Cannot upload an empty Excel dataset."
+                    )
+            return dataframe
 
         elif extension == "json":
             return pd.read_json(file_path)

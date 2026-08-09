@@ -1,169 +1,143 @@
 class Insights:
 
-    def generate_insights(
-        self,
-        statistics,
-        correlation,
-        distribution,
-        outlier,
-    ):
+    def generate_insights(self, statistics, correlation, distribution, outlier):
         """
-        Generate dataset insights from EDA results.
+        Generate rule-based automated insights from EDA analysis.
         """
+        insights_list = []
+        recommendations = []
 
-        insights = {
+        summary = statistics.get("dataset_summary", {})
+        total_rows = summary.get("total_rows", 0)
 
-            "high_missing_columns": [],
+        # -------------------------------------
+        # 1. Missing Values Insight
+        # -------------------------------------
+        missing_dict = statistics.get("missing_values", {})
+        max_missing_col = None
+        max_missing_pct = 0.0
 
-            "constant_columns": [],
+        for col, count in missing_dict.items():
+            if total_rows > 0:
+                pct = (count / total_rows) * 100
+                if pct > max_missing_pct:
+                    max_missing_pct = pct
+                    max_missing_col = col
 
-            "highly_correlated_features": [],
+        if max_missing_col and max_missing_pct > 0:
+            insights_list.append({
+                "type": "missing_values",
+                "title": "Highest Missing Values",
+                "description": f"Feature '{max_missing_col}' has the highest missing values ({max_missing_pct:.2f}%).",
+                "severity": "warning" if max_missing_pct > 20 else "info",
+            })
+            if max_missing_pct > 30:
+                recommendations.append(f"Consider dropping or imputing feature '{max_missing_col}' ({max_missing_pct:.1f}% missing).")
 
-            "high_outlier_columns": [],
+        # -------------------------------------
+        # 2. Skewness Insight
+        # -------------------------------------
+        num_dists = distribution.get("numerical", {})
+        max_skew_col = None
+        max_skew_val = 0.0
 
-            "highly_skewed_columns": [],
+        for col, data in num_dists.items():
+            skew = abs(data.get("summary", {}).get("skewness", 0.0))
+            if skew > max_skew_val:
+                max_skew_val = skew
+                max_skew_col = col
 
-            "recommendations": [],
+        if max_skew_col and max_skew_val > 1.0:
+            insights_list.append({
+                "type": "skewness",
+                "title": "Most Skewed Feature",
+                "description": f"Feature '{max_skew_col}' is highly skewed with a skewness coefficient of {max_skew_val:.2f}.",
+                "severity": "warning",
+            })
+            recommendations.append(f"Feature '{max_skew_col}' is highly skewed. Consider log or power transformation.")
+
+        # -------------------------------------
+        # 3. Variance Insight
+        # -------------------------------------
+        max_var_col = None
+        max_var_val = 0.0
+
+        for col, data in num_dists.items():
+            variance = data.get("summary", {}).get("variance", 0.0)
+            if variance > max_var_val:
+                max_var_val = variance
+                max_var_col = col
+
+        if max_var_col:
+            insights_list.append({
+                "type": "variance",
+                "title": "Largest Variance",
+                "description": f"Feature '{max_var_col}' has the largest variance ({max_var_val:.2f}).",
+                "severity": "info",
+            })
+
+        # -------------------------------------
+        # 4. Correlation Insight
+        # -------------------------------------
+        high_corr_pairs = correlation.get("strong_positive_correlations", []) + correlation.get("strong_negative_correlations", [])
+        if high_corr_pairs:
+            top_pair = high_corr_pairs[0]
+            insights_list.append({
+                "type": "correlation",
+                "title": "Highest Correlation Pair",
+                "description": f"Features '{top_pair['feature_1']}' and '{top_pair['feature_2']}' are strongly correlated ({top_pair['correlation']:.2f}).",
+                "severity": "info",
+            })
+            recommendations.append(f"High collinearity between '{top_pair['feature_1']}' and '{top_pair['feature_2']}'. Consider dropping one before model training.")
+
+        # -------------------------------------
+        # 5. Outliers Insight
+        # -------------------------------------
+        outlier_sum = outlier.get("outlier_summary", {})
+        max_outlier_col = None
+        max_outlier_cnt = 0
+        max_outlier_pct = 0.0
+
+        for col, data in outlier_sum.items():
+            if data["count"] > max_outlier_cnt:
+                max_outlier_cnt = data["count"]
+                max_outlier_pct = data["percentage"]
+                max_outlier_col = col
+
+        if max_outlier_col and max_outlier_cnt > 0:
+            insights_list.append({
+                "type": "outliers",
+                "title": "Highest Outliers Count",
+                "description": f"Feature '{max_outlier_col}' contains {max_outlier_cnt} outliers ({max_outlier_pct:.2f}% of rows).",
+                "severity": "warning" if max_outlier_pct > 5 else "info",
+            })
+
+        # -------------------------------------
+        # 6. Cardinality Insight
+        # -------------------------------------
+        cat_stats = statistics.get("categorical_statistics", {})
+        max_card_col = None
+        max_card_val = 0
+
+        for col, data in cat_stats.items():
+            unique_cnt = data.get("unique_values", 0)
+            if unique_cnt > max_card_val:
+                max_card_val = unique_cnt
+                max_card_col = col
+
+        if max_card_col:
+            insights_list.append({
+                "type": "cardinality",
+                "title": "Highest Cardinality Feature",
+                "description": f"Categorical feature '{max_card_col}' has {max_card_val} unique categories.",
+                "severity": "info",
+            })
+
+        # Quality observation default if dataset is clean
+        if not recommendations:
+            recommendations.append("Dataset features show balanced distribution and healthy metrics for model training.")
+
+        return {
+            "insights": insights_list,
+            "recommendations": recommendations,
         }
-
-        # =====================================
-        # Missing Values
-        # =====================================
-
-        total_rows = statistics["rows"]
-
-        for column, missing in statistics[
-            "missing_values"
-        ].items():
-
-            percentage = (
-                (missing / total_rows) * 100
-            )
-
-            if percentage >= 30:
-
-                insights[
-                    "high_missing_columns"
-                ].append(
-                    {
-                        "column": column,
-                        "missing_percentage": round(
-                            percentage,
-                            2,
-                        ),
-                    }
-                )
-
-                insights[
-                    "recommendations"
-                ].append(
-                    f"Column '{column}' has {percentage:.2f}% missing values."
-                )
-
-        # =====================================
-        # Constant Columns
-        # =====================================
-
-        numeric_stats = statistics.get(
-            "numeric_statistics",
-            {},
-        )
-
-        for column, values in numeric_stats.items():
-
-            minimum = values.get("min")
-            maximum = values.get("max")
-
-            if minimum == maximum:
-
-                insights[
-                    "constant_columns"
-                ].append(column)
-
-                insights[
-                    "recommendations"
-                ].append(
-                    f"Column '{column}' contains constant values."
-                )
-
-        # =====================================
-        # Highly Correlated Features
-        # =====================================
-
-        for pair in correlation.get(
-            "high_correlation_pairs",
-            [],
-        ):
-
-            insights[
-                "highly_correlated_features"
-            ].append(pair)
-
-            insights[
-                "recommendations"
-            ].append(
-                f"{pair['feature_1']} and {pair['feature_2']} are highly correlated ({pair['correlation']})."
-            )
-
-        # =====================================
-        # Outliers
-        # =====================================
-
-        for column, values in outlier[
-            "outliers"
-        ].items():
-
-            if values["percentage"] >= 5:
-
-                insights[
-                    "high_outlier_columns"
-                ].append(
-                    {
-                        "column": column,
-                        "percentage": values[
-                            "percentage"
-                        ],
-                    }
-                )
-
-                insights[
-                    "recommendations"
-                ].append(
-                    f"Column '{column}' contains {values['percentage']}% outliers."
-                )
-
-        # =====================================
-        # Skewness
-        # =====================================
-
-        for column, values in distribution[
-            "distribution_summary"
-        ].items():
-
-            skewness = abs(
-                values["skewness"]
-            )
-
-            if skewness > 1:
-
-                insights[
-                    "highly_skewed_columns"
-                ].append(
-                    {
-                        "column": column,
-                        "skewness": round(
-                            values[
-                                "skewness"
-                            ],
-                            4,
-                        ),
-                    }
-                )
-
-                insights[
-                    "recommendations"
-                ].append(
-                    f"Column '{column}' is highly skewed."
-                )
-
-        return insights

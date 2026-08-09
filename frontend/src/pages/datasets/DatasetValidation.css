@@ -1,0 +1,759 @@
+/* ============================================================
+   DatasetValidation.css — Styles for Phase 6 Validation Page
+   ============================================================ */
+
+.ds-val-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+  padding-bottom: var(--space-12);
+}
+
+/* ── Page Header ── */
+.ds-val-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.ds-val-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ds-val-header-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ds-val-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.ds-val-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.ds-val-ver-badge {
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--bg-surface-hover);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.ds-val-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.ds-val-status--running {
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.ds-val-status--completed {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.ds-val-status--failed {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.ds-val-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.ds-val-spinner {
+  animation: ds-val-spin 1s linear infinite;
+}
+
+@keyframes ds-val-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── Error Banner ── */
+.ds-val-error-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-xl);
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--text-primary);
+}
+
+.ds-val-error-text {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.ds-val-error-icon {
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+/* ── Initial Loading State ── */
+.ds-val-loading-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.ds-val-loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-10) var(--space-6);
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  gap: var(--space-4);
+}
+
+.ds-val-spinner-lg {
+  color: var(--color-primary);
+}
+
+.ds-val-loading-text h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ds-val-loading-text p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  max-width: 540px;
+  margin-top: var(--space-2);
+}
+
+.ds-val-progress-bar {
+  width: 100%;
+  max-width: 480px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.ds-val-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #3b82f6, #10b981);
+  border-radius: var(--radius-full);
+  animation: ds-val-progress-anim 2s infinite ease-in-out;
+}
+
+@keyframes ds-val-progress-anim {
+  0% { width: 10%; margin-left: 0%; }
+  50% { width: 60%; margin-left: 20%; }
+  100% { width: 100%; margin-left: 0%; }
+}
+
+.ds-val-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.ds-val-skeleton-card {
+  height: 100px;
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+}
+
+.skeleton-pulse {
+  animation: skeleton-pulse-anim 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-pulse-anim {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.4; }
+}
+
+/* ── Top Dashboard Score Card ── */
+.ds-val-score-card {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  align-items: center;
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  gap: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .ds-val-score-card {
+    grid-template-columns: 1fr;
+  }
+  .ds-val-score-divider {
+    display: none;
+  }
+}
+
+.ds-val-score-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.ds-val-gauge-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ds-val-gauge-center {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-val-score-num {
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.ds-val-score-denom {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.ds-val-score-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ds-val-score-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+}
+
+.ds-val-quality-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  width: fit-content;
+}
+
+.ds-badge--excellent {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.ds-badge--good {
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.ds-badge--needs-improvement {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.ds-badge--poor {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.ds-val-score-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  max-width: 320px;
+}
+
+.ds-val-score-divider {
+  width: 1px;
+  height: 100%;
+  background: var(--border-subtle);
+}
+
+.ds-val-score-right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ds-val-health-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ds-val-health-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.ds-val-health-item {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-subtle);
+}
+
+.ds-val-health-num {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.ds-val-health-name {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* ── Summary Cards Grid ── */
+.ds-val-section-header {
+  margin-bottom: var(--space-3);
+}
+
+.ds-val-section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ds-val-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: var(--space-4);
+}
+
+.ds-val-stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.ds-val-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-medium);
+}
+
+.ds-val-stat-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ds-val-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-val-stat-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.ds-val-stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* ── Report Tabs & Content ── */
+.ds-val-report-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ds-val-tabs-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px;
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  overflow-x: auto;
+}
+
+.ds-val-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.ds-val-tab-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-surface-hover);
+}
+
+.ds-val-tab-btn--active {
+  color: var(--text-primary);
+  background: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.ds-val-tab-content {
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ── Search Bar ── */
+.ds-val-search-box {
+  position: relative;
+  margin-bottom: var(--space-4);
+}
+
+.ds-val-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+}
+
+.ds-val-search-input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4) var(--space-3) 38px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+}
+
+.ds-val-search-input:focus {
+  border-color: var(--color-primary);
+}
+
+/* ── Table Styling ── */
+.ds-val-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.ds-val-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+.ds-val-table th {
+  padding: var(--space-3) var(--space-4);
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.02);
+  white-space: nowrap;
+}
+
+.ds-val-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.ds-val-table tbody tr:hover {
+  background: var(--bg-surface-hover);
+}
+
+/* Data Type Tag */
+.ds-val-type-tag {
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.ds-type--integer, .ds-type--float, .ds-type--numeric {
+  background: rgba(6, 182, 212, 0.15);
+  color: #22d3ee;
+}
+
+.ds-type--categorical, .ds-type--object {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+}
+
+.ds-type--date {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+}
+
+.ds-type--boolean {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+/* Status Chip */
+.ds-val-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ds-chip--valid {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+}
+
+.ds-chip--inconsistent {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+}
+
+/* Progress bar inside missing tab */
+.ds-val-bar-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.ds-val-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+/* Duplicate / Invalid Layouts */
+.ds-val-duplicates-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.ds-val-dup-card {
+  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-subtle);
+}
+
+.ds-val-dup-val {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: var(--space-2) 0;
+}
+
+.ds-val-dup-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-3) 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ds-val-dup-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Invalid Values Summary */
+.ds-val-invalid-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.ds-val-invalid-box {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-subtle);
+}
+
+.ds-val-invalid-box span {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.ds-val-invalid-box strong {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+
+/* Quality Issues List */
+.ds-val-issues-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ds-val-issue-item {
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface-hover);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ds-issue--warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.ds-issue--error {
+  border-left: 4px solid #ef4444;
+}
+
+.ds-val-issue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ds-val-issue-type {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+}
+
+.ds-val-issue-severity {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ds-val-issue-msg {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ds-val-issue-rec {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.ds-val-empty-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-8);
+  gap: var(--space-2);
+}
+
+.ds-val-empty-tab h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ds-val-empty-tab p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}

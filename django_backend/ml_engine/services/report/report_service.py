@@ -79,6 +79,7 @@ from ml_engine.services.report.comparison_report import (
 from ml_engine.services.report.deployment_report import (
     DeploymentReport,
 )
+from ml_engine.services.report.validation_report import ValidationReport
 
 
 class ReportService:
@@ -93,6 +94,8 @@ class ReportService:
         self.comparison_report = ComparisonReport()
 
         self.deployment_report = DeploymentReport()
+
+        self.validation_report = ValidationReport()
 
     # ==================================================
     # Generate Report
@@ -145,6 +148,16 @@ class ReportService:
         if report_type == "deployment":
 
             return self.deployment_report.generate(
+                report_data,
+            )
+
+        # ------------------------------------------
+        # Validation Report
+        # ------------------------------------------
+
+        if report_type == "validation":
+
+            return self.validation_report.generate(
                 report_data,
             )
 

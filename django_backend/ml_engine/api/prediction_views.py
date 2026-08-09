@@ -79,13 +79,27 @@ class PredictionAPIView(APIView):
                 )
             )
 
+            feature_metadata_path = (
+                serializer.validated_data.get(
+                    "feature_metadata_path",
+                )
+            )
+
             # ----------------------------------
             # Generate Prediction
             # ----------------------------------
 
+            # result = (
+            #     self.prediction_service.predict(
+            #         model_path=model_path,
+            #         features=features,
+            #     )
+            # )
+
             result = (
                 self.prediction_service.predict(
                     model_path=model_path,
+                    feature_metadata_path=feature_metadata_path,
                     features=features,
                 )
             )

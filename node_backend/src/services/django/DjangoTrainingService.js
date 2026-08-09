@@ -18,15 +18,41 @@ class DjangoTrainingService {
     /**
      * Train a Machine Learning model.
      */
+    // async trainModel(
+    //     trainingData,
+    // ) {
+    //     const response = await this.client.post(
+    //         "train/",
+    //         trainingData,
+    //     );
+
+    //     return response.data;
+    // }
     async trainModel(
         trainingData,
     ) {
-        const response = await this.client.post(
-            "train/",
-            trainingData,
-        );
+        try {
 
-        return response.data;
+            const response = await this.client.post(
+                "train/",
+                trainingData,
+            );
+
+            return response.data;
+
+        }
+        catch (error) {
+
+            // Django returned a response (400, 404, 500, ...)
+            if (error.response) {
+                return error.response.data;
+            }
+
+            // Network error / Django server down
+            throw new Error(
+                error.message,
+            );
+        }
     }
 }
 

@@ -1,0 +1,19 @@
+{
+    "rows": 201,
+    "columns": 2,
+    "column_names": [
+        "cgpa",
+        "package"
+    ],
+    "data_types": {
+        "cgpa": "float64",
+        "package": "float64"
+    },
+    "missing_values": {
+        "cgpa": 0,
+        "package": 3
+    },
+    "duplicate_rows": 0,
+    "memory_usage": 3348,
+    "categorical_summary": {}
+}

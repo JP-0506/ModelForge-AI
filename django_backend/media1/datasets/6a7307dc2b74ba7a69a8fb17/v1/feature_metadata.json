@@ -1,0 +1,62 @@
+{
+    "original_features": [
+        "crim",
+        "zn",
+        "indus",
+        "chas",
+        "nox",
+        "rm",
+        "age",
+        "dis",
+        "rad",
+        "tax",
+        "ptratio",
+        "b",
+        "lstat",
+        "medv"
+    ],
+    "engineered_features": [
+        "crim",
+        "zn",
+        "indus",
+        "chas",
+        "nox",
+        "rm",
+        "age",
+        "dis",
+        "rad",
+        "tax",
+        "ptratio",
+        "b",
+        "lstat",
+        "medv"
+    ],
+    "target_column": "medv",
+    "feature_order": [
+        "crim",
+        "zn",
+        "indus",
+        "chas",
+        "nox",
+        "rm",
+        "age",
+        "dis",
+        "rad",
+        "tax",
+        "ptratio",
+        "b",
+        "lstat"
+    ],
+    "transformations": {
+        "encoding": {
+            "method": "one_hot"
+        },
+        "feature_generation": [],
+        "transformation": {},
+        "feature_selection": {}
+    },
+    "encoding_metadata": {
+        "method": "one_hot",
+        "columns": {}
+    }
+}

@@ -42,12 +42,11 @@ projects {
     workspace_id
     project_name
     description
+    problem_type
     status
-    created_by
     created_at
     updated_at
     is_deleted
-    deleted_at
 
 }
 
@@ -86,10 +85,16 @@ experiments {
     _id
     project_id
     dataset_version_id
-    algorithm
+    user_id
+
+    experiment_name 
+
     problem_type
+    algorithm
+    target_column
+    
     parameters
-    metrics
+    metrics *******
     training_time
     created_at
     updated_at
@@ -105,7 +110,9 @@ trained_models {
     model_name
     model_version
     model_path
-    accuracy
+is_best_model
+
+    accuracy *****************
     status
     created_at
     updated_at
@@ -164,4 +171,85 @@ activity_logs {
     activity_type
     created_at
 
+}
+///////////////////////////////////////
+datasets
+{
+    _id
+    project_id
+    dataset_name
+    current_version
+    created_at
+    updated_at
+    is_deleted
+    deleted_at
+}
+
+dataset_versions
+{
+    _id
+    dataset_id
+    version_number
+    original_file_name
+    stored_file_name
+    original_file_path,
+    cleaned_file_path,
+    feature_engineered_file_path,
+    profiling_path
+    file_type
+    file_size
+    rows
+    columns
+    processing_status
+    uploaded_at
+}
+
+experiments {
+    _id
+    project_id
+    dataset_version_id
+    user_id
+
+    experiment_name
+
+    problem_type
+    algorithm
+    target_column
+
+    parameters
+
+    target_leakage
+    cross_validation
+    evaluation
+
+    training_time
+
+    status
+
+    created_at
+    updated_at
+
+    is_deleted
+    deleted_at
+}
+
+trained_models{
+    _id
+
+    experiment_id
+    
+    model_name
+    model_version
+    
+    model_path
+    model_size
+    
+    is_best_model
+    deployment_status
+    
+    created_at
+    updated_at
+    
+    is_deleted
+    deleted_at
 }

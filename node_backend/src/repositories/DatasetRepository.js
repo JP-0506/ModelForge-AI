@@ -14,18 +14,75 @@ class DatasetRepository {
 
   // Get All Datasets by Project
   async getDatasetsByProject(projectId) {
-    return await Dataset.find({
+    const datasets = await Dataset.find({
       project_id: projectId,
       is_deleted: false,
-    }).sort({ created_at: -1 });
+    })
+      .sort({ created_at: -1 })
+      .lean();
+
+    return await Promise.all(
+      datasets.map(async (ds) => {
+        const latestVersion = await DatasetVersion.findOne({
+          dataset_id: ds._id,
+          version_number: ds.current_version,
+        }).lean();
+
+        return {
+          ...ds,
+          latest_version: latestVersion,
+        };
+      })
+    );
   }
 
   // Get Dataset By ID
   async getDatasetById(datasetId) {
-    return await Dataset.findOne({
+    const dataset = await Dataset.findOne({
       _id: datasetId,
       is_deleted: false,
-    });
+    }).lean();
+
+    if (!dataset) return null;
+
+    const latestVersion = await DatasetVersion.findOne({
+      dataset_id: dataset._id,
+      version_number: dataset.current_version,
+    }).lean();
+
+    return {
+      ...dataset,
+      latest_version: latestVersion,
+    };
+  }
+
+  // Update Dataset
+  async updateDataset(datasetId, updateData) {
+    const dataset = await Dataset.findOneAndUpdate(
+      {
+        _id: datasetId,
+        is_deleted: false,
+      },
+      {
+        ...updateData,
+        updated_at: new Date(),
+      },
+      {
+        returnDocument: "after",
+      }
+    ).lean();
+
+    if (!dataset) return null;
+
+    const latestVersion = await DatasetVersion.findOne({
+      dataset_id: dataset._id,
+      version_number: dataset.current_version,
+    }).lean();
+
+    return {
+      ...dataset,
+      latest_version: latestVersion,
+    };
   }
 
   // Get DatasetVersion By ID
@@ -80,6 +137,20 @@ class DatasetRepository {
     );
   }
 
+  async findByProjectAndName(
+    projectId,
+    datasetName,
+  ) {
+    return await Dataset.findOne({
+      project_id: projectId,
+      dataset_name: {
+        $regex: `^${datasetName.trim()}$`,
+        $options: "i",
+      },
+      is_deleted: false,
+    });
+  }
+
   // Soft Delete Dataset
   async deleteDataset(datasetId) {
     return await Dataset.findOneAndUpdate(
@@ -96,6 +167,22 @@ class DatasetRepository {
         returnDocument: "after",
       }
     );
+  }
+
+  // ==========================================
+  // Hard Delete Dataset
+  // ==========================================
+
+  async hardDeleteDataset(datasetId) {
+    return await Dataset.findByIdAndDelete(datasetId);
+  }
+
+  // ==========================================
+  // Hard Delete Dataset Version
+  // ==========================================
+
+  async hardDeleteDatasetVersion(versionId) {
+    return await DatasetVersion.findByIdAndDelete(versionId);
   }
 }
 

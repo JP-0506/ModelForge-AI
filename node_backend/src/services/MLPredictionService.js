@@ -1,5 +1,7 @@
 import DeploymentRepository from "../repositories/DeploymentRepository.js";
 import TrainedModelRepository from "../repositories/TrainedModelRepository.js";
+import ExperimentRepository from "../repositories/ExperimentRepository.js";
+import DatasetRepository from "../repositories/DatasetRepository.js";
 
 import DjangoPredictionService from "./django/DjangoPredictionService.js";
 
@@ -12,6 +14,12 @@ class MLPredictionService {
 
         this.trainedModelRepository =
             TrainedModelRepository;
+
+        this.experimentRepository =
+            ExperimentRepository;
+
+        this.datasetRepository =
+            DatasetRepository;
 
         this.djangoPredictionService =
             DjangoPredictionService;
@@ -163,6 +171,42 @@ class MLPredictionService {
         );
 
         // ==========================================
+        // Get Experiment
+        // ==========================================
+
+        const experiment =
+            await this.experimentRepository.findById(
+                trainedModel.experiment_id,
+            );
+
+        if (!experiment) {
+
+            throw new Error(
+                "Experiment not found.",
+            );
+
+        }
+
+        // ==========================================
+        // Get Dataset Version
+        // ==========================================
+
+        const datasetVersion =
+            await this.datasetRepository.getDatasetVersionById(
+                experiment.dataset_version_id,
+            );
+
+        if (!datasetVersion) {
+
+            throw new Error(
+                "Dataset version not found.",
+            );
+
+        }
+
+        const featureMetadataPath = datasetVersion?.feature_metadata_path || null;
+
+        // ==========================================
         // Generate Prediction Using Django
         // ==========================================
 
@@ -172,8 +216,10 @@ class MLPredictionService {
                     model_path:
                         trainedModel.model_path,
 
-                    features:
-                        features,
+                    feature_metadata_path:
+                        featureMetadataPath,
+
+                    features,
                 },
             );
 

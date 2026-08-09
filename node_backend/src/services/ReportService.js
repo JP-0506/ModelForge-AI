@@ -106,11 +106,18 @@ class ReportService {
             experiment_name: experiment.experiment_name,
             problem_type: experiment.problem_type,
             target_column: experiment.target_column,
-            model_name: trainedModel?.model_name ?? NOT_AVAILABLE,
-            training_date: trainedModel?.created_at ?? NOT_AVAILABLE,
+            algorithm: experiment.algorithm,
+            parameters: experiment.parameters,
+            cross_validation: experiment.cross_validation,
+            target_leakage: experiment.target_leakage,
+            training_time: experiment.training_time,
+            model_name: trainedModel?.model_name ?? experiment.algorithm,
+            model_size: trainedModel?.model_size ?? NOT_AVAILABLE,
+            training_date: trainedModel?.created_at ?? experiment.created_at,
             metrics: experiment.evaluation ?? {},
         };
     }
+
 
     // ===================================================
     // Build Comparison Report Data
@@ -264,6 +271,17 @@ class ReportService {
 
             case "deployment":
                 return await this.generateDeploymentReport(deployment_id);
+
+            case "validation":
+                const valReport = await this.djangoReportService.generateReport({
+                    report_type: "validation",
+                    report_data: reportRequest.report_data || reportRequest,
+                });
+                return {
+                    fileBuffer: valReport.fileBuffer,
+                    contentType: valReport.contentType,
+                    fileName: "validation_report.pdf",
+                };
 
             default:
                 throw new Error("Invalid report type.");

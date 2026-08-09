@@ -33,5 +33,7 @@ export const changePasswordValidator = [
     .notEmpty()
     .withMessage("New password is required.")
     .isLength({ min: 8 })
-    .withMessage("New password must be at least 8 characters long."),
+    .withMessage("New password must be at least 8 characters long.")
+    .matches(/[A-Z]/)
+    .withMessage("New password must contain at least one uppercase letter (A-Z)."),
 ];

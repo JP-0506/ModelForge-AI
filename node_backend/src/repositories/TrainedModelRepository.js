@@ -11,6 +11,17 @@ class TrainedModelRepository {
             trainedModelData,
         );
     }
+    
+    async findById(
+        trainedModelId,
+    ) {
+        return await TrainedModel.findOne(
+            {
+                _id: trainedModelId,
+                is_deleted: false,
+            },
+        );
+    }
 
     //  Find trained model by ID.
 
@@ -57,6 +68,22 @@ class TrainedModelRepository {
     }
 
     // ==========================================
+    // Find Best Model By Experiment ID
+    // ==========================================
+
+    async findBestModelByExperimentId(
+        experimentId,
+    ) {
+        return await TrainedModel.findOne(
+            {
+                experiment_id: experimentId,
+                is_best_model: true,
+                is_deleted: false,
+            },
+        );
+    }
+
+    // ==========================================
     // Reset Best Model Flag
     // ==========================================
 
@@ -80,12 +107,29 @@ class TrainedModelRepository {
     // Set Best Model
     // ==========================================
 
+    // async setBestModel(
+    //     experimentId,
+    // ) {
+    //     return await TrainedModel.findOneAndUpdate(
+    //         {
+    //             experiment_id: experimentId,
+    //             is_deleted: false,
+    //         },
+    //         {
+    //             is_best_model: true,
+    //         },
+    //         {
+    //             new: true,
+    //         },
+    //     );
+    // }
+
     async setBestModel(
-        experimentId,
+        trainedModelId,
     ) {
         return await TrainedModel.findOneAndUpdate(
             {
-                experiment_id: experimentId,
+                _id: trainedModelId,
                 is_deleted: false,
             },
             {

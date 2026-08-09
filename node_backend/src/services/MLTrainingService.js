@@ -5,6 +5,7 @@ import ProjectRepository from "../repositories/ProjectRepository.js";
 import DatasetRepository from "../repositories/DatasetRepository.js";
 import ExperimentRepository from "../repositories/ExperimentRepository.js";
 import TrainedModelRepository from "../repositories/TrainedModelRepository.js";
+import DeploymentRepository from "../repositories/DeploymentRepository.js";
 
 import DjangoTrainingService from "./django/DjangoTrainingService.js";
 
@@ -17,6 +18,8 @@ class MLTrainingService {
         this.experimentRepository = ExperimentRepository;
 
         this.trainedModelRepository = TrainedModelRepository;
+
+        this.deploymentRepository = DeploymentRepository;
 
         this.djangoTrainingService = DjangoTrainingService;
     }
@@ -62,31 +65,49 @@ class MLTrainingService {
         return datasetVersion;
     }
 
+    // Helper to resolve disk path cross-platform
+    resolveDatasetPath(p) {
+        if (!p) return null;
+        if (fs.existsSync(p)) return p;
+        const normalized = String(p).replace(/\\/g, "/");
+        const mediaIdx = normalized.indexOf("media/");
+        if (mediaIdx !== -1) {
+            const rel = normalized.substring(mediaIdx);
+            const cand = path.resolve(process.cwd(), "..", "django_backend", rel);
+            if (fs.existsSync(cand)) return cand;
+        }
+        return null;
+    }
+
     // ===================================================
-    // Validate Feature Engineered Dataset
+    // Validate Dataset Version File
     // ===================================================
 
     validateTrainingDataset(
         datasetVersion,
     ) {
-        if (
-            !datasetVersion.feature_engineered_file_path
-        ) {
+        const candidatePaths = [
+            datasetVersion.feature_engineered_file_path,
+            datasetVersion.cleaned_file_path,
+            datasetVersion.original_file_path,
+        ];
+
+        let validPath = null;
+        for (const rawP of candidatePaths) {
+            const resolved = this.resolveDatasetPath(rawP);
+            if (resolved) {
+                validPath = resolved;
+                break;
+            }
+        }
+
+        if (!validPath) {
             throw new Error(
-                "Feature engineered dataset not found.",
+                "Dataset file path not found for training.",
             );
         }
 
-        if (
-            !fs.existsSync(
-                datasetVersion.feature_engineered_file_path,
-            )
-        ) {
-            throw new Error(
-                "Feature engineered dataset file does not exist.",
-            );
-        }
-
+        datasetVersion.resolved_file_path = validPath;
         return true;
     }
 
@@ -100,7 +121,7 @@ class MLTrainingService {
         algorithm,
     ) {
         const modelDirectory = path.join(
-            process.env.DJANGO_MEDIA_PATH,
+            process.env.DJANGO_MEDIA_PATH || path.resolve(process.cwd(), "..", "django_backend", "media"),
             "models",
             projectId.toString(),
             experimentId.toString(),
@@ -137,9 +158,14 @@ class MLTrainingService {
         target_column,
         parameters,
     ) {
+        const datasetPath = datasetVersion.resolved_file_path ||
+            datasetVersion.feature_engineered_file_path ||
+            datasetVersion.cleaned_file_path ||
+            datasetVersion.original_file_path;
+
         return {
             dataset_path:
-                datasetVersion.feature_engineered_file_path,
+                datasetPath,
 
             model_path:
                 modelPath,
@@ -155,6 +181,7 @@ class MLTrainingService {
         };
     }
 
+
     // ===================================================
     // Call Django Training API
     // ===================================================
@@ -162,18 +189,9 @@ class MLTrainingService {
     async trainModelUsingDjango(
         trainingRequest,
     ) {
-        const response =
-            await this.djangoTrainingService.trainModel(
-                trainingRequest,
-            );
-
-        if (!response.success) {
-            throw new Error(
-                response.message,
-            );
-        }
-
-        return response.data;
+        return await this.djangoTrainingService.trainModel(
+            trainingRequest,
+        );
     }
 
     ///////////   PART 2    /////////
@@ -221,6 +239,23 @@ class MLTrainingService {
         this.validateTrainingDataset(
             datasetVersion,
         );
+
+        // Validate target column for non-clustering tasks
+        if (project.problem_type !== 'clustering' && (!target_column || !target_column.trim())) {
+            const error = new Error("Target column is required for model training. Please select a target column.");
+            error.statusCode = 400;
+            throw error;
+        }
+
+        // Check for duplicate experiment name in project
+        if (experiment_name) {
+            const existingExp = await this.experimentRepository.findByName(project_id, experiment_name);
+            if (existingExp) {
+                const error = new Error(`An experiment named '${experiment_name.trim()}' already exists in this project.`);
+                error.statusCode = 400;
+                throw error;
+            }
+        }
 
         // ==========================================
         // Create Experiment
@@ -276,6 +311,9 @@ class MLTrainingService {
                 parameters,
             );
 
+        console.log("\n========== DJANGO REQUEST ==========");
+        console.dir(djangoRequest, { depth: null });
+        console.log("====================================");
         // ==========================================
         // Start Training Timer
         // ==========================================
@@ -298,17 +336,37 @@ class MLTrainingService {
 
         try {
 
-            trainingResult =
+            const trainingResponse =
                 await this.trainModelUsingDjango(
                     djangoRequest,
                 );
+            console.log("===== DJANGO RESPONSE =====");
+            console.dir(trainingResponse, { depth: null });
+
+            // ==========================================
+            // Training Validation Failed
+            // ==========================================
+
+            if (!trainingResponse.success) {
+
+                await this.experimentRepository.update(
+                    experiment._id,
+                    {
+                        status: "validation_failed",
+                    },
+                );
+
+                return {
+                    success: false,
+                    message: trainingResponse.message,
+                    validation: trainingResponse.data,
+                };
+            }
+
+            trainingResult = trainingResponse.data;
 
         }
         catch (error) {
-
-            // ==========================================
-            // Update Experiment Status
-            // ==========================================
 
             await this.experimentRepository.update(
                 experiment._id,
@@ -429,16 +487,68 @@ class MLTrainingService {
                 experiment._id,
             );
 
+        console.log("===== FINAL RETURN =====");
+        console.dir({
+            experiment: updatedExperiment,
+            trained_model: trainedModel,
+            training_result: trainingResult,
+        }, { depth: null });
         // ==========================================
         // Return Response
         // ==========================================
 
         return {
+            success: true,
+
             experiment: updatedExperiment,
 
             trained_model: trainedModel,
 
             training_result: trainingResult,
+        };
+    }
+
+    // ===================================================
+    // Soft Delete Trained Model / Experiment
+    // ===================================================
+
+    async deleteTrainedModel(modelOrExpId) {
+        let trainedModel = await this.trainedModelRepository.findById(modelOrExpId);
+        let experimentId = null;
+
+        if (trainedModel) {
+            experimentId = trainedModel.experiment_id;
+            await this.trainedModelRepository.softDelete(trainedModel._id);
+        } else {
+            // Check if modelOrExpId is experiment_id
+            const exp = await this.experimentRepository.findById(modelOrExpId);
+            if (exp) {
+                experimentId = exp._id;
+                trainedModel = await this.trainedModelRepository.findByExperimentId(exp._id);
+                if (trainedModel) {
+                    await this.trainedModelRepository.softDelete(trainedModel._id);
+                }
+            } else {
+                throw new Error("Trained model or experiment not found.");
+            }
+        }
+
+        // Soft delete experiment
+        if (experimentId) {
+            await this.experimentRepository.softDelete(experimentId);
+        }
+
+        // Soft delete active deployment if exists
+        if (trainedModel && trainedModel._id) {
+            const dep = await this.deploymentRepository.findActiveDeploymentByModelId(trainedModel._id);
+            if (dep) {
+                await this.deploymentRepository.softDelete(dep._id);
+            }
+        }
+
+        return {
+            success: true,
+            message: "Trained model deleted successfully.",
         };
     }
 }

@@ -54,6 +54,11 @@ const datasetVersionSchema = new mongoose.Schema(
       trim: true,
     },
 
+    feature_metadata_path: {
+      type: String,
+      default: null,
+    },
+
     eda_path: {
       type: String,
       default: null,
@@ -94,8 +99,14 @@ const datasetVersionSchema = new mongoose.Schema(
       default: null,
     },
 
+    column_names: {
+      type: [String],
+      default: [],
+    },
+
+
     // ==========================================
-    // Cleaned Dataset Statistics
+    // Cleaned Dataset Statistics & Metadata
     // ==========================================
 
     cleaned_rows: {
@@ -107,6 +118,17 @@ const datasetVersionSchema = new mongoose.Schema(
       type: Number,
       default: null,
     },
+
+    cleaning_options: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+
+    cleaning_summary: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+
 
     // ==========================================
     // Feature Engineered Dataset Statistics
@@ -121,6 +143,22 @@ const datasetVersionSchema = new mongoose.Schema(
       type: Number,
       default: null,
     },
+
+    feature_engineering_options: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+
+    feature_engineering_summary: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+
+    eda_summary: {
+      type: mongoose.Schema.Types.Mixed,
+      default: null,
+    },
+
 
     // ==========================================
     // Model Information (Future)
@@ -145,12 +183,14 @@ const datasetVersionSchema = new mongoose.Schema(
         "profiled",
         "cleaned",
         "feature_engineered",
+        "eda_completed",
         "ready_for_training",
         "trained",
         "ready_for_prediction",
       ],
       default: "uploaded",
     },
+
 
     uploaded_at: {
       type: Date,

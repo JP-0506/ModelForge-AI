@@ -1,0 +1,218 @@
+/* ============================================================
+   Button CSS — Premium pill buttons
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition:
+    transform var(--transition-spring),
+    box-shadow var(--transition-smooth),
+    background var(--transition-fast),
+    opacity var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+}
+
+/* ── Shimmer effect on hover ── */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.btn:hover::before {
+  transform: translateX(100%);
+}
+
+/* ── Sizes ── */
+.btn--sm {
+  height: 34px;
+  padding: 0 var(--space-4);
+  font-size: var(--font-size-xs);
+  gap: var(--space-1);
+}
+
+.btn--md {
+  height: 42px;
+  padding: 0 var(--space-6);
+  font-size: var(--font-size-sm);
+}
+
+.btn--lg {
+  height: 50px;
+  padding: 0 var(--space-8);
+  font-size: var(--font-size-base);
+}
+
+/* ── Full Width ── */
+.btn--full {
+  width: 100%;
+}
+
+/* ── Primary ── */
+.btn--primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #1a56d6 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.30);
+}
+
+.btn--primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+  background: linear-gradient(135deg, #1D56E8 0%, var(--color-primary) 100%);
+}
+
+.btn--primary:active:not(:disabled) {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.30);
+}
+
+/* ── Secondary (Accent) ── */
+.btn--secondary {
+  background: linear-gradient(135deg, var(--color-accent) 0%, #6D28D9 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.30);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+}
+
+.btn--secondary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* ── Outline ── */
+.btn--outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+  box-shadow: none;
+}
+
+.btn--outline:hover:not(:disabled) {
+  background: var(--color-primary-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--outline:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* ── Ghost ── */
+.btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border-subtle);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--ghost:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* ── Danger ── */
+.btn--danger {
+  background: linear-gradient(135deg, var(--color-error) 0%, #DC2626 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+}
+
+.btn--danger:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.40);
+}
+
+.btn--danger:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* ── Glass Button ── */
+.btn--glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur-light);
+  -webkit-backdrop-filter: var(--glass-blur-light);
+  border: var(--glass-border);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--glass:hover:not(:disabled) {
+  background: var(--bg-surface-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Disabled ── */
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Loading ── */
+.btn--loading {
+  cursor: wait;
+}
+
+.btn-spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.30);
+  border-top-color: rgba(255, 255, 255, 1);
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ── Icons ── */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.btn-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn--lg .btn-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-label {
+  display: inline-flex;
+  align-items: center;
+}

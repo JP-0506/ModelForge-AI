@@ -1,0 +1,352 @@
+/* DatasetOverview CSS */
+
+.ds-overview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-bottom: var(--space-6);
+}
+
+.ds-overview-loading,
+.ds-overview-error {
+  padding: var(--space-12);
+  text-align: center;
+  color: var(--text-secondary);
+  border-radius: var(--radius-3xl);
+}
+
+.ds-overview-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: 440px;
+  margin: var(--space-8) auto;
+}
+
+.ds-overview-err-icon {
+  color: var(--color-error);
+}
+
+/* Header */
+.ds-overview-header {
+  border-radius: var(--radius-3xl);
+  padding: var(--space-6) var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.ds-overview-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.ds-overview-icon-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ds-overview-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.ds-overview-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.ds-overview-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.ds-overview-type-tag {
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.ds-overview-ver-tag {
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+.ds-overview-filename {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.ds-overview-dates {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.ds-overview-dates span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ds-overview-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Stats */
+.ds-overview-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.ds-stat-card {
+  border-radius: var(--radius-2xl);
+  padding: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ds-stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ds-stat-icon--size { background: rgba(37, 99, 235, 0.12); color: var(--color-primary); }
+.ds-stat-icon--rows { background: rgba(34, 197, 94, 0.12); color: var(--color-success); }
+.ds-stat-icon--cols { background: rgba(245, 158, 11, 0.12); color: var(--color-warning); }
+.ds-stat-icon--ver  { background: rgba(124, 58, 237, 0.12); color: var(--color-accent); }
+
+.ds-stat-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ds-stat-val {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.ds-stat-lbl {
+  font-size: 10px;
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+
+/* Section title */
+.ds-overview-section-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+/* Pipeline Status Card */
+.ds-overview-status-card {
+  border-radius: var(--radius-3xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.ds-status-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+}
+
+.ds-status-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  min-width: 100px;
+  position: relative;
+}
+
+.ds-status-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 60%;
+  right: -40%;
+  height: 2px;
+  background: var(--border-subtle);
+  z-index: 0;
+}
+
+.ds-status-step--done:not(:last-child)::after {
+  background: var(--color-success);
+}
+
+.ds-status-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-subtle);
+  border: 2px solid var(--border-medium);
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  position: relative;
+  z-index: 1;
+  transition: all var(--transition-fast);
+}
+
+.ds-status-step--done .ds-status-dot {
+  background: var(--color-success-light);
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.ds-status-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.ds-status-step--done .ds-status-label {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Versions Card */
+.ds-overview-vers-card {
+  border-radius: var(--radius-3xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ds-overview-vers-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ds-overview-ver-count {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+}
+
+.ds-overview-vers-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ds-overview-ver-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  background: var(--bg-subtle);
+  gap: var(--space-4);
+}
+
+.ds-overview-ver-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.ds-ver-badge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.ds-ver-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ds-ver-file {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.ds-ver-date {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.ds-overview-ver-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ds-ver-size {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.ds-ver-status {
+  font-size: 11px;
+  text-transform: capitalize;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (max-width: 1024px) {
+  .ds-overview-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .ds-overview-stats { grid-template-columns: 1fr; }
+  .ds-overview-header { flex-direction: column; align-items: flex-start; }
+}

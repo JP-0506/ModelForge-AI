@@ -1,0 +1,56 @@
+/* ============================================================
+   Dashboard Layout CSS
+   ============================================================ */
+
+.dashboard-layout {
+  min-height: 100vh;
+  display: flex;
+  background: var(--bg-base);
+}
+
+/* ── Mobile Overlay ── */
+.dashboard-mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: calc(var(--z-sticky) - 1);
+}
+
+/* ── Main Area (right of sidebar) ── */
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: calc(var(--sidebar-width) + var(--space-4) + var(--space-4));
+  min-height: 100vh;
+  min-width: 0;
+}
+
+/* ── Content (below navbar) ── */
+.dashboard-content {
+  flex: 1;
+  padding: calc(var(--navbar-height) + var(--space-8))
+           var(--space-6)
+           var(--space-8)
+           var(--space-6);
+  max-width: var(--content-max-width);
+  width: 100%;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .dashboard-main {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: calc(var(--navbar-height) + var(--space-4) + var(--space-4))
+             var(--space-4)
+             var(--space-6)
+             var(--space-4);
+  }
+}

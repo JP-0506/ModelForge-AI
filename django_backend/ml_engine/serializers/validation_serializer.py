@@ -1,9 +1,7 @@
 from rest_framework import serializers
 
 
-class ValidationSerializer(
-    serializers.Serializer,
-):
+class ValidationSerializer(serializers.Serializer):
     """
     Serializer for dataset validation request.
     """
@@ -13,15 +11,17 @@ class ValidationSerializer(
     )
 
     version = serializers.IntegerField(
-        required=True,
+        required=False,
+        default=1,
         min_value=1,
     )
 
     dataset_type = serializers.ChoiceField(
-        required=True,
+        required=False,
+        default="original",
         choices=[
             "original",
             "cleaned",
             "feature_engineered",
         ],
-    )
+    )

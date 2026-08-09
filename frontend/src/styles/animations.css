@@ -1,0 +1,225 @@
+/* ============================================================
+   ModelForge AI — Keyframe Animations
+   ============================================================ */
+
+/* ── Fade ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* ── Fade + Scale ── */
+@keyframes fadeScaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeScaleOut {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.95); }
+}
+
+/* ── Slide Up ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Blur In ── */
+@keyframes blurIn {
+  from { opacity: 0; filter: blur(8px); transform: scale(0.98); }
+  to   { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+
+/* ── Float ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+
+/* ── Pulse ── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.05); opacity: 0.8; }
+}
+
+/* ── Glow ── */
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 16px rgba(37, 99, 235, 0.2); }
+  50%       { box-shadow: 0 0 32px rgba(37, 99, 235, 0.45), 0 0 64px rgba(37, 99, 235, 0.15); }
+}
+
+@keyframes glowAccent {
+  0%, 100% { box-shadow: 0 0 16px rgba(124, 58, 237, 0.2); }
+  50%       { box-shadow: 0 0 32px rgba(124, 58, 237, 0.45), 0 0 64px rgba(124, 58, 237, 0.15); }
+}
+
+/* ── Shimmer Loading ── */
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+/* ── Spin ── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Bounce ── */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+  50%       { transform: translateY(-8px); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+}
+
+/* ── Gradient Shift ── */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── Stagger ── */
+@keyframes staggerFadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Draw Line ── */
+@keyframes drawLine {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* ── Typewriter ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Scale In ── */
+@keyframes scaleIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* ── Progress Bar ── */
+@keyframes progressFill {
+  from { width: 0%; }
+  to   { width: var(--progress-width, 100%); }
+}
+
+/* ── Orbit ── */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(40px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+}
+
+/* ============================================================
+   Animation Utility Classes
+   ============================================================ */
+
+.anim-fade-in        { animation: fadeIn var(--transition-smooth) ease both; }
+.anim-fade-scale-in  { animation: fadeScaleIn var(--transition-spring) ease both; }
+.anim-slide-up       { animation: slideUp var(--transition-smooth) ease both; }
+.anim-slide-down     { animation: slideDown var(--transition-smooth) ease both; }
+.anim-slide-left     { animation: slideLeft var(--transition-smooth) ease both; }
+.anim-slide-right    { animation: slideRight var(--transition-smooth) ease both; }
+.anim-blur-in        { animation: blurIn var(--transition-spring) ease both; }
+.anim-float          { animation: float 3s ease-in-out infinite; }
+.anim-float-slow     { animation: floatSlow 4s ease-in-out infinite; }
+.anim-pulse          { animation: pulse 2s ease-in-out infinite; }
+.anim-glow           { animation: glow 2.5s ease-in-out infinite; }
+.anim-spin           { animation: spin 1s linear infinite; }
+.anim-spin-slow      { animation: spinSlow 3s linear infinite; }
+.anim-gradient-shift { animation: gradientShift 4s ease infinite; background-size: 200% 200%; }
+
+/* ── Stagger Delays ── */
+.delay-0   { animation-delay: 0ms; }
+.delay-50  { animation-delay: 50ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+
+/* ── Shimmer Skeleton ── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--border-subtle) 25%,
+    var(--bg-surface-hover) 50%,
+    var(--border-subtle) 75%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 1.8s infinite linear;
+  border-radius: var(--radius-md);
+}
+
+/* ── Hover Float ── */
+.hover-float {
+  transition: transform var(--transition-spring), box-shadow var(--transition-smooth);
+}
+
+.hover-float:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Hover Lift ── */
+.hover-lift {
+  transition: transform var(--transition-spring), box-shadow var(--transition-smooth);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Reduce motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

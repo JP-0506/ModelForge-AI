@@ -22,6 +22,34 @@ class DatasetController {
     }
   }
 
+  // ==========================================
+  // Validate Dataset
+  // ==========================================
+
+  async validateDataset(
+    request,
+    response,
+    next,
+  ) {
+    try {
+      const { datasetId } = request.params;
+      const { dataset_type } = request.body || {};
+
+      const validation = await DatasetService.validateDataset(
+        datasetId,
+        dataset_type || "original",
+      );
+
+      return response.status(200).json({
+        success: true,
+        message: "Dataset validation completed successfully.",
+        data: validation,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   // ===========================================
   // Dataset Profiling
   // ===========================================
@@ -43,6 +71,26 @@ class DatasetController {
     }
   }
 
+  // Get Dataset Profile
+  async getDatasetProfile(req, res, next) {
+    try {
+      const result = await DatasetService.getDatasetProfile(
+        req.user.id,
+        req.params.id
+      );
+
+      return res.status(200).json({
+        success: true,
+        message: "Dataset profile retrieved successfully.",
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+
+
   // ===========================================
   // Dataset Cleaning
   // ===========================================
@@ -63,6 +111,24 @@ class DatasetController {
       next(error);
     }
   }
+
+  async previewCleanDataset(req, res, next) {
+    try {
+      const result = await DatasetService.previewCleanDataset(
+        req.user.id,
+        req.body
+      );
+
+      return res.status(200).json({
+        success: true,
+        message: "Dataset cleaning preview generated successfully.",
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
 
   // ===========================================
   // Feature Engineering
@@ -86,6 +152,26 @@ class DatasetController {
     }
   }
 
+  async previewFeatureEngineering(req, res, next) {
+    try {
+      const result =
+        await DatasetService.previewFeatureEngineering(
+          req.user.id,
+          req.body
+        );
+
+      return res.status(200).json({
+        success: true,
+        message:
+          "Feature engineering preview generated successfully.",
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+
   // ===========================================
   // EDA
   // ===========================================
@@ -106,6 +192,28 @@ class DatasetController {
       next(error);
     }
   }
+
+  async getEDA(req, res, next) {
+    try {
+      const result =
+        await DatasetService.getEDA(
+          req.user.id,
+          {
+            dataset_id: req.params.id,
+            version: req.query.version || 1,
+          }
+        );
+
+      return res.status(200).json({
+        success: true,
+        message: "EDA report fetched successfully.",
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
 
   // Upload New Dataset Version
   async uploadDatasetVersion(req, res, next) {
@@ -168,6 +276,26 @@ class DatasetController {
     }
   }
 
+  // Update Dataset
+  async updateDataset(req, res, next) {
+    try {
+      const dataset =
+        await DatasetService.updateDataset(
+          req.params.id,
+          req.user.id,
+          req.body
+        );
+
+      return res.status(200).json({
+        success: true,
+        message: "Dataset updated successfully.",
+        data: dataset,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   // Get Dataset Version History
   async getDatasetVersions(req, res, next) {
     try {
@@ -187,6 +315,33 @@ class DatasetController {
       next(error);
     }
   }
+
+  // Get Column Names for a Dataset
+  async getDatasetColumns(req, res, next) {
+    try {
+      const data = await DatasetService.getDatasetColumns(req.params.id);
+      return res.status(200).json({
+        success: true,
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // Get Column Names by Dataset Version ID (GET /api/datasets/versions/:datasetVersionId/columns)
+  async getDatasetVersionColumns(req, res, next) {
+    try {
+      const data = await DatasetService.getDatasetVersionColumns(
+        req.user.id,
+        req.params.datasetVersionId
+      );
+      return res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
 
   // Delete Dataset
   async deleteDataset(req, res, next) {

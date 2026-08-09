@@ -1,3 +1,5 @@
+from ml_engine.serializers import report_serializer
+from pandas.core import algorithms
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -24,7 +26,7 @@ class TrainingAPIView(APIView):
     ):
         super().__init__(**kwargs)
 
-        self.training_service = TrainingService()
+        self.training_service = TrainingService()   
 
     def post(
         self,
@@ -67,9 +69,20 @@ class TrainingAPIView(APIView):
                 {},
             )
 
+            print("\n========== TRAIN REQUEST ==========")
+            print("Dataset Path :", dataset_path)
+            print("Problem Type :", problem_type)
+            print("Algorithm    :", algorithm)
+            print("Target Column:", target_column)
+            print("Parameters   :", parameters)
+            print("===================================")
+
             # ==========================================
             # Train Model
             # ==========================================
+            print("\n========== REQUEST DATA ==========")
+            print(serializer.validated_data)
+            print("==================================")
 
             result = self.training_service.train_model(
                 dataset_path=dataset_path,
@@ -80,10 +93,16 @@ class TrainingAPIView(APIView):
                 parameters=parameters,
             )
 
-            # ==========================================
-            # Success Response
-            # ==========================================
-
+            if result["status"] == "failed":
+            
+                return Response(
+                    {
+                        "success": False,
+                        "message": result["message"],
+                        "data": result["validation"],
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             return Response(
                 {
                     "success": True,

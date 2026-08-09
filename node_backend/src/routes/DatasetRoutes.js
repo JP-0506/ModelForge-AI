@@ -33,7 +33,7 @@ router.post(
   "/:datasetId/validation",
   AuthMiddleware,
   DatasetController.validateDataset.bind(
-  DatasetController,
+    DatasetController,
   ),
 );
 
@@ -46,6 +46,14 @@ router.post(
   DatasetController.profileDataset
 );
 
+router.get(
+  "/:id/profile",
+  AuthMiddleware,
+  DatasetController.getDatasetProfile
+);
+
+
+
 // ===========================================
 // Dataset Cleaning
 // ===========================================
@@ -54,6 +62,13 @@ router.post(
   AuthMiddleware,
   DatasetController.cleanDataset
 );
+
+router.post(
+  "/clean/preview",
+  AuthMiddleware,
+  DatasetController.previewCleanDataset
+);
+
 
 // ===========================================
 // Feature Engineering
@@ -64,6 +79,13 @@ router.post(
   DatasetController.featureEngineering
 );
 
+router.post(
+  "/feature-engineering/preview",
+  AuthMiddleware,
+  DatasetController.previewFeatureEngineering
+);
+
+
 // ===========================================
 // EDA
 // ===========================================
@@ -72,6 +94,13 @@ router.post(
   AuthMiddleware,
   DatasetController.generateEDA
 );
+
+router.get(
+  "/:id/eda",
+  AuthMiddleware,
+  DatasetController.getEDA
+);
+
 
 // ===========================================
 // Upload New Dataset Version
@@ -101,6 +130,35 @@ router.get(
   "/:id",
   AuthMiddleware,
   DatasetController.getDatasetById
+);
+
+// ===========================================
+// Get Dataset Version Columns
+// ===========================================
+router.get(
+  "/versions/:datasetVersionId/columns",
+  AuthMiddleware,
+  DatasetController.getDatasetVersionColumns
+);
+
+// ===========================================
+// Get Dataset Columns
+// ===========================================
+router.get(
+  "/:id/columns",
+  AuthMiddleware,
+  DatasetController.getDatasetColumns
+);
+
+
+
+// ===========================================
+// Update Dataset
+// ===========================================
+router.put(
+  "/:id",
+  AuthMiddleware,
+  DatasetController.updateDataset
 );
 
 // ===========================================

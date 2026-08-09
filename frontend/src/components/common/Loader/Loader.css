@@ -1,0 +1,91 @@
+/* ============================================================
+   Loader CSS
+   ============================================================ */
+
+/* ── Fullscreen ── */
+.loader-fullscreen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-base);
+  z-index: var(--z-modal);
+}
+
+/* ── Overlay ── */
+.loader-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-overlay);
+  backdrop-filter: var(--glass-blur-light);
+  -webkit-backdrop-filter: var(--glass-blur-light);
+  border-radius: inherit;
+  z-index: var(--z-raised);
+}
+
+/* ── Inline ── */
+.loader-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ── Content wrapper ── */
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* ── Spinner ── */
+.loader-spinner {
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: var(--color-primary);
+  border-right-color: var(--color-primary);
+  animation: spin 0.75s linear infinite;
+  flex-shrink: 0;
+}
+
+.loader-spinner--sm { width: 20px; height: 20px; border-width: 2px; }
+.loader-spinner--md { width: 32px; height: 32px; border-width: 2.5px; }
+.loader-spinner--lg { width: 48px; height: 48px; border-width: 3px; }
+
+.loader-spinner--primary {
+  border-top-color: var(--color-primary);
+  border-right-color: rgba(37, 99, 235, 0.25);
+  border-bottom-color: rgba(37, 99, 235, 0.25);
+  border-left-color: rgba(37, 99, 235, 0.25);
+}
+
+.loader-spinner--white {
+  border-top-color: #ffffff;
+  border-right-color: rgba(255, 255, 255, 0.25);
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+  border-left-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Text ── */
+.loader-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  margin: 0;
+}
+
+/* ── Fullscreen Logo Pulse (for initial load) ── */
+.loader-fullscreen::before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  opacity: 0.08;
+  animation: pulseSoft 2s ease-in-out infinite;
+}

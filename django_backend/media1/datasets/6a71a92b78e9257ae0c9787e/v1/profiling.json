@@ -1,0 +1,170 @@
+{
+    "dataset_summary": {
+        "total_rows": 1338,
+        "total_columns": 7,
+        "numerical_columns": 4,
+        "categorical_columns": 1,
+        "boolean_columns": 2,
+        "date_columns": 0,
+        "text_columns": 0,
+        "missing_values": 0,
+        "duplicate_rows": 1
+    },
+    "dataset_statistics": {
+        "total_cells": 9366,
+        "empty_cells": 0,
+        "empty_cell_percentage": 0.0,
+        "duplicate_rows": 1,
+        "duplicate_percentage": 0.07,
+        "avg_missing_percentage": 0.0
+    },
+    "dataset_quality": {
+        "quality_score": 100,
+        "quality_badge": "Excellent",
+        "factors": {
+            "missing_cell_pct": 0.0,
+            "duplicate_row_pct": 0.07,
+            "empty_cells_count": 0
+        }
+    },
+    "data_type_distribution": {
+        "numeric": 4,
+        "categorical": 1,
+        "boolean": 2,
+        "date": 0,
+        "text": 0
+    },
+    "missing_value_analysis": {
+        "total_missing_values": 0,
+        "missing_percentage": 0.0,
+        "missing_by_column": [
+            {
+                "column": "age",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "sex",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "bmi",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "children",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "smoker",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "region",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "charges",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            }
+        ]
+    },
+    "sample_data_preview": [
+        {
+            "age": 19,
+            "sex": "female",
+            "bmi": 27.9,
+            "children": 0,
+            "smoker": "yes",
+            "region": "southwest",
+            "charges": 16884.924
+        },
+        {
+            "age": 18,
+            "sex": "male",
+            "bmi": 33.77,
+            "children": 1,
+            "smoker": "no",
+            "region": "southeast",
+            "charges": 1725.5523
+        },
+        {
+            "age": 28,
+            "sex": "male",
+            "bmi": 33.0,
+            "children": 3,
+            "smoker": "no",
+            "region": "southeast",
+            "charges": 4449.462
+        },
+        {
+            "age": 33,
+            "sex": "male",
+            "bmi": 22.705,
+            "children": 0,
+            "smoker": "no",
+            "region": "northwest",
+            "charges": 21984.4706
+        },
+        {
+            "age": 32,
+            "sex": "male",
+            "bmi": 28.88,
+            "children": 0,
+            "smoker": "no",
+            "region": "northwest",
+            "charges": 3866.8552
+        },
+        {
+            "age": 31,
+            "sex": "female",
+            "bmi": 25.74,
+            "children": 0,
+            "smoker": "no",
+            "region": "southeast",
+            "charges": 3756.6216
+        },
+        {
+            "age": 46,
+            "sex": "female",
+            "bmi": 33.44,
+            "children": 1,
+            "smoker": "no",
+            "region": "southeast",
+            "charges": 8240.5896
+        },
+        {
+            "age": 37,
+            "sex": "female",
+            "bmi": 27.74,
+            "children": 3,
+            "smoker": "no",
+            "region": "northwest",
+            "charges": 7281.5056
+        },
+        {
+            "age": 37,
+            "sex": "male",
+            "bmi": 29.83,
+            "children": 2,
+            "smoker": "no",
+            "region": "northeast",
+            "charges": 6406.4107
+        },
+        {
+            "age": 60,
+            "sex": "female",
+            "bmi": 25.84,
+            "children": 0,
+            "smoker": "no",
+            "region": "northwest",
+            "charges": 28923.1369
+        }
+    ]
+}

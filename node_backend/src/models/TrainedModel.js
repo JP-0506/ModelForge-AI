@@ -35,7 +35,25 @@ const trainedModelSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    
+
+    // deployment_status: {
+    //   type: String,
+    //   // enum: [
+    //   //   "not_deployed",
+    //   //   "deployed",
+    //   //   "archived",
+    //   // ],
+
+    //   enum: [
+    //     "not_deployed",
+    //     "deploying",
+    //     "deployed",
+    //     "failed",
+    //     "archived",
+    //   ],
+    //   default: "not_deployed",
+    // },
+
     status: {
       type: String,
       enum: [

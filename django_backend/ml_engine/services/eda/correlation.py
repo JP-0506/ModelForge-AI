@@ -1,51 +1,66 @@
 import pandas as pd
+import numpy as np
 
 
 class Correlation:
 
-    def generate_correlation(self, dataframe: pd.DataFrame):
+    def generate_correlation(self, dataframe: pd.DataFrame, default_threshold: float = 0.70):
         """
-        Generate correlation matrix for numeric columns.
+        Generate correlation matrix and strong positive / negative correlation pairs.
         """
-
-        # Select only numeric columns
         numeric_dataframe = dataframe.select_dtypes(include=["number"])
 
-        # If no numeric columns exist
-        if numeric_dataframe.empty:
+        if numeric_dataframe.empty or len(numeric_dataframe.columns) < 2:
             return {
+                "columns": [],
                 "correlation_matrix": {},
-                "high_correlation_pairs": [],
+                "matrix_list": [],
+                "strong_positive_correlations": [],
+                "strong_negative_correlations": [],
+                "total_correlation_pairs": 0,
             }
 
-        # Correlation matrix
-        correlation_matrix = numeric_dataframe.corr().round(4).fillna(0)
+        # Calculate Pearson correlation matrix
+        corr_df = numeric_dataframe.corr().round(4).fillna(0)
+        columns = corr_df.columns.tolist()
 
-        # Highly correlated feature pairs
-        high_correlation_pairs = []
+        strong_positive = []
+        strong_negative = []
+        matrix_list = []
 
-        columns = correlation_matrix.columns
+        for i, col1 in enumerate(columns):
+            row_dict = {"feature": col1}
+            for j, col2 in enumerate(columns):
+                val = float(corr_df.iloc[i, j])
+                row_dict[col2] = val
 
-        for i in range(len(columns)):
-            for j in range(i + 1, len(columns)):
+                if i < j:
+                    if val >= default_threshold:
+                        strong_positive.append({
+                            "feature_1": col1,
+                            "feature_2": col2,
+                            "correlation": val,
+                        })
+                    elif val <= -default_threshold:
+                        strong_negative.append({
+                            "feature_1": col1,
+                            "feature_2": col2,
+                            "correlation": val,
+                        })
+            matrix_list.append(row_dict)
 
-                correlation = correlation_matrix.iloc[
-                    i,
-                    j,
-                ]
+        # Sort strong pairs by absolute magnitude
+        strong_positive.sort(key=lambda x: abs(x["correlation"]), reverse=True)
+        strong_negative.sort(key=lambda x: abs(x["correlation"]), reverse=True)
 
-                if abs(correlation) >= 0.80:
-                    high_correlation_pairs.append(
-                        {
-                            "feature_1": columns[i],
-                            "feature_2": columns[j],
-                            "correlation": float(correlation),
-                        }
-                    )
+        total_pairs = (len(columns) * (len(columns) - 1)) // 2
 
         return {
-            # Complete matrix
-            "correlation_matrix": correlation_matrix.to_dict(),
-            # Strong correlations
-            "high_correlation_pairs": high_correlation_pairs,
+            "columns": columns,
+            "correlation_matrix": corr_df.to_dict(),
+            "matrix_list": matrix_list,
+            "strong_positive_correlations": strong_positive,
+            "strong_negative_correlations": strong_negative,
+            "total_correlation_pairs": total_pairs,
+            "default_threshold": default_threshold,
         }

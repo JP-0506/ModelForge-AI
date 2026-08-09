@@ -1,0 +1,69 @@
+{
+    "original_features": [
+        "age",
+        "sex",
+        "bmi",
+        "children",
+        "smoker",
+        "region",
+        "charges"
+    ],
+    "engineered_features": [
+        "age",
+        "bmi",
+        "children",
+        "charges",
+        "sex_female",
+        "sex_male",
+        "smoker_no",
+        "smoker_yes",
+        "region_northeast",
+        "region_northwest",
+        "region_southeast",
+        "region_southwest"
+    ],
+    "target_column": "charges",
+    "feature_order": [
+        "age",
+        "bmi",
+        "children",
+        "sex_female",
+        "sex_male",
+        "smoker_no",
+        "smoker_yes",
+        "region_northeast",
+        "region_northwest",
+        "region_southeast",
+        "region_southwest"
+    ],
+    "transformations": {
+        "encoding": "one_hot",
+        "feature_generation": [],
+        "transformation": {
+            "type": "none",
+            "columns": []
+        },
+        "feature_selection": {
+            "method": "none"
+        }
+    },
+    "encoding_metadata": {
+        "method": "one_hot",
+        "columns": {
+            "sex": [
+                "female",
+                "male"
+            ],
+            "smoker": [
+                "no",
+                "yes"
+            ],
+            "region": [
+                "northeast",
+                "northwest",
+                "southeast",
+                "southwest"
+            ]
+        }
+    }
+}

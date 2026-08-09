@@ -1,0 +1,193 @@
+/* ============================================================
+   Input CSS — Glass style with floating labels
+   ============================================================ */
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+/* ── Field Container ── */
+.input-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--bg-input);
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-xl);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+  overflow: hidden;
+}
+
+.input-field--focused {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+  background: var(--bg-surface-hover);
+}
+
+.input-field--error {
+  border-color: var(--color-error);
+}
+
+.input-field--error.input-field--focused {
+  box-shadow: 0 0 0 3px var(--color-error-light);
+}
+
+/* ── Input Container (for floating label) ── */
+.input-container {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Actual Input ── */
+.input {
+  width: 100%;
+  height: 52px;
+  padding: 20px var(--space-5) 6px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  transition: padding var(--transition-fast);
+}
+
+/* Hide placeholder when not focused to prevent overlap with un-floated floating label */
+.input::placeholder {
+  color: var(--text-tertiary);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.input:focus::placeholder {
+  opacity: 1;
+}
+
+.input--has-left-icon {
+  padding-left: var(--space-3);
+}
+
+.input--has-right-icon {
+  padding-right: var(--space-3);
+}
+
+/* When no label, center text vertically */
+.input:only-child {
+  padding: var(--space-4) var(--space-5);
+}
+
+/* ── Floating Label ── */
+.input-label {
+  position: absolute;
+  left: var(--space-5);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  pointer-events: none;
+  transition:
+    top var(--transition-fast),
+    transform var(--transition-fast),
+    font-size var(--transition-fast),
+    color var(--transition-fast);
+  transform-origin: left top;
+}
+
+/* Label floats up when: focused OR has value */
+.input:focus ~ .input-label,
+.input:not(:placeholder-shown) ~ .input-label {
+  top: 10px;
+  transform: translateY(0) scale(0.82);
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.input-field--error .input:focus ~ .input-label,
+.input-field--error .input:not(:placeholder-shown) ~ .input-label {
+  color: var(--color-error);
+}
+
+/* ── Left Icon ── */
+.input-icon--left {
+  display: inline-flex;
+  align-items: center;
+  padding-left: var(--space-5);
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  transition: color var(--transition-fast);
+}
+
+.input-field--focused .input-icon--left {
+  color: var(--color-primary);
+}
+
+.input-icon--left svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Right Icon ── */
+.input-icon--right {
+  display: inline-flex;
+  align-items: center;
+  padding-right: var(--space-5);
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: default;
+}
+
+.input-icon--clickable {
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  padding: var(--space-2);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.input-icon--clickable:hover {
+  color: var(--text-primary);
+  background: var(--border-subtle);
+}
+
+.input-icon--right svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Error & Hint ── */
+.input-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-error);
+  font-weight: var(--font-weight-medium);
+  padding-left: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.input-hint {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  padding-left: var(--space-5);
+}
+
+/* ── Dark Mode ── */
+[data-theme="dark"] .input {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px var(--bg-input) inset;
+  -webkit-text-fill-color: var(--text-primary);
+}

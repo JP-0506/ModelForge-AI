@@ -8,6 +8,9 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+ehthumbs.db
+.AppleDouble
+.LSOverride
 
 ###############################
 # Logs
@@ -27,6 +30,12 @@ pnpm-debug.log*
 !.env.example
 
 ###############################
+# IDE
+###############################
+.vscode/
+.idea/
+
+###############################
 # Node.js
 ###############################
 node_modules/
@@ -34,11 +43,17 @@ npm-cache/
 .pnpm-store/
 
 ###############################
-# React (Vite)
+# React Frontend (Vite)
 ###############################
 frontend/node_modules/
 frontend/dist/
 frontend/.vite/
+frontend/coverage/
+# Ignore Node package files
+frontend/package.json
+frontend/package-lock.json
+frontend/**/*.txt
+frontend/**/*.md
 
 ###############################
 # Node Backend
@@ -111,11 +126,14 @@ docker/**/*.log
 mongod.lock
 
 ###############################
-# Uploaded Files
+# Temporary Files
 ###############################
+temp/
 uploads/
 media/
-temp/
+*.tmp
+*.bak
+*.swp
 
 ###############################
 # Reports Generated
@@ -133,7 +151,7 @@ generated_reports/
 *.pt
 
 ###############################
-# Jupyter
+# Jupyter Notebook
 ###############################
 .ipynb_checkpoints/
 
@@ -144,24 +162,6 @@ generated_reports/
 .parcel-cache/
 
 ###############################
-# Miscellaneous
-###############################
-*.tmp
-*.bak
-*.swp
-
-###############################
 # Postman
 ###############################
 postman/*.postman_environment.json
-
-###############################
-# Mac
-###############################
-.AppleDouble
-.LSOverride
-
-###############################
-# Windows
-###############################
-ehthumbs.db

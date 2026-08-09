@@ -1,3 +1,4 @@
+from pandas.core.interchange import dataframe
 import pandas as pd
 
 from ml_engine.services.training.target_leakage import (
@@ -26,6 +27,10 @@ from ml_engine.services.training.evaluator import (
 
 from ml_engine.services.training.model_saver import (
     ModelSaver,
+)
+
+from ml_engine.services.training.training_validation import (
+    TrainingValidation,
 )
 
 
@@ -78,6 +83,28 @@ class TrainingService:
         return pd.read_csv(
             dataset_path,
         )
+
+    # =====================================
+    # Training Validation
+    # =====================================
+
+    def _validate_training(
+        self,
+        dataframe,
+        target_column,
+        algorithm,
+    ):
+        """
+        Validate dataset before training.
+        """
+
+        validator = TrainingValidation(
+            dataframe=dataframe,
+            target_column=target_column,
+            algorithm=algorithm,
+        )
+
+        return validator.validate()
 
     # =====================================
     # Target Leakage Detection
@@ -140,15 +167,23 @@ class TrainingService:
         if parameters is None:
             parameters = {}
 
-        # wrapper = self.model_factory.create_model(
         wrapper = self.model_factory.create(
             problem_type=problem_type,
             algorithm=algorithm,
         )
 
-        model = wrapper.create_model(
-            **parameters,
-        )
+        try:
+            model = wrapper.create_model(
+                **parameters,
+            )
+        except TypeError as err:
+            raw_model = wrapper.create_model()
+            if hasattr(raw_model, "get_params"):
+                valid_keys = set(raw_model.get_params().keys())
+                filtered_params = {k: v for k, v in parameters.items() if k in valid_keys}
+                model = raw_model.set_params(**filtered_params)
+            else:
+                raise err
 
         return wrapper, model
 
@@ -280,6 +315,41 @@ class TrainingService:
             dataset_path,
         )
 
+        print("\n========== DATASET ==========")
+        print("Dataset Path:")
+        print(dataset_path)
+        
+        print("\nColumns:")
+        print(dataframe.columns.tolist())
+
+        print("\nTarget Column:")
+        print(target_column)
+
+        print("============================")
+
+        # -----------------------------
+        # Training Validation
+        # -----------------------------
+
+        print("\n========== BEFORE VALIDATION ==========")
+        print("Target:", target_column)
+        print("Columns:", dataframe.columns.tolist())
+        print("======================================")
+
+        validation = self._validate_training(
+            dataframe=dataframe,
+            target_column=target_column,
+            algorithm=algorithm,
+        )
+        print("\n===== TRAINING VALIDATION =====")
+        print(validation)
+
+        if validation["status"] == "error":
+            return {
+                "status": "failed",
+                "message": "Training validation failed.",
+                "validation": validation,
+            }
         # -----------------------------
         # Target Leakage
         # -----------------------------
@@ -290,6 +360,14 @@ class TrainingService:
             problem_type=problem_type,
         )
 
+        # Extract test_size for data splitting and clean model hyperparameters
+        if parameters is None:
+            model_params = {}
+        else:
+            model_params = dict(parameters)
+
+        test_size = float(model_params.pop("test_size", 0.2))
+
         # -----------------------------
         # Dataset Split
         # -----------------------------
@@ -297,6 +375,7 @@ class TrainingService:
             dataframe=dataframe,
             target_column=target_column,
             problem_type=problem_type,
+            test_size=test_size,
         )
 
         X_train = split_data["X_train"]
@@ -307,6 +386,8 @@ class TrainingService:
 
         y_test = split_data["y_test"]
 
+        print("\n===== TRAINING COLUMNS =====")
+        print(X_train.columns.tolist())
         # -----------------------------
         # Create Model
         # -----------------------------
@@ -314,9 +395,9 @@ class TrainingService:
         wrapper, model = self._create_model(
             problem_type=problem_type,
             algorithm=algorithm,
-            parameters=parameters,
+            parameters=model_params,
         )
-        
+
 
         # -----------------------------
         # Train Model
@@ -348,6 +429,12 @@ class TrainingService:
             trained_model=trained_model,
             X_test=X_test,
         )
+
+        print("===== TRAINING PREDICTIONS =====")
+        print(predictions[:10])
+
+        print("===== ACTUAL VALUES =====")
+        print(y_test.iloc[:10].tolist())
 
         # -----------------------------
         # Evaluation

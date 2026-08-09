@@ -1,0 +1,57 @@
+{
+    "original_features": [
+        "age",
+        "sex",
+        "bmi",
+        "children",
+        "smoker",
+        "region",
+        "charges"
+    ],
+    "engineered_features": [
+        "age",
+        "sex",
+        "bmi",
+        "children",
+        "smoker",
+        "region",
+        "charges"
+    ],
+    "target_column": null,
+    "feature_order": [
+        "age",
+        "sex",
+        "bmi",
+        "children",
+        "smoker",
+        "region",
+        "charges"
+    ],
+    "transformations": {
+        "encoding": {
+            "method": "label"
+        },
+        "feature_generation": [],
+        "transformation": {},
+        "feature_selection": {}
+    },
+    "encoding_metadata": {
+        "method": "label",
+        "columns": {
+            "sex": [
+                "female",
+                "male"
+            ],
+            "smoker": [
+                "no",
+                "yes"
+            ],
+            "region": [
+                "northeast",
+                "northwest",
+                "southeast",
+                "southwest"
+            ]
+        }
+    }
+}

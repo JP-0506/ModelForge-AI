@@ -64,14 +64,28 @@ class CrossValidator:
         # -------------------------------------
         # Perform Cross Validation
         # -------------------------------------
-
-        scores = cross_val_score(
-            estimator=model,
-            X=X,
-            y=y,
-            cv=cv,
-            scoring=scoring,
-        )
+        try:
+            scores = cross_val_score(
+                estimator=model,
+                X=X,
+                y=y,
+                cv=cv,
+                scoring=scoring,
+            )
+        except ValueError:
+            # Fallback to standard KFold if StratifiedKFold fails due to rare classes
+            cv_fallback = KFold(
+                n_splits=folds,
+                shuffle=True,
+                random_state=random_state,
+            )
+            scores = cross_val_score(
+                estimator=model,
+                X=X,
+                y=y,
+                cv=cv_fallback,
+                scoring=scoring,
+            )
 
         return {
             "scores": scores.tolist(),

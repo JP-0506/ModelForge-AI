@@ -1,0 +1,186 @@
+{
+  "status": "completed",
+  "validation_score": 100,
+  "quality_badge": "Excellent",
+  "summary": {
+    "total_rows": 1338,
+    "total_columns": 7,
+    "missing_values": 0,
+    "duplicate_rows": 1,
+    "duplicate_columns": 0,
+    "numeric_columns": 4,
+    "categorical_columns": 0,
+    "date_columns": 0,
+    "boolean_columns": 0,
+    "validation_score": 100,
+    "quality_badge": "Excellent",
+    "total_checks": 10,
+    "passed_checks": 8,
+    "warning_checks": 2,
+    "error_checks": 0
+  },
+  "report": {
+    "missing_values": [],
+    "duplicate_rows": {
+      "total_duplicate_rows": 1,
+      "duplicate_percentage": 0.07
+    },
+    "duplicate_columns": [],
+    "data_types": [
+      {
+        "column": "age",
+        "detected_type": "Integer",
+        "expected_type": "Integer",
+        "status": "Valid"
+      },
+      {
+        "column": "sex",
+        "detected_type": "Object",
+        "expected_type": "Object",
+        "status": "Valid"
+      },
+      {
+        "column": "bmi",
+        "detected_type": "Float",
+        "expected_type": "Float",
+        "status": "Valid"
+      },
+      {
+        "column": "children",
+        "detected_type": "Integer",
+        "expected_type": "Integer",
+        "status": "Valid"
+      },
+      {
+        "column": "smoker",
+        "detected_type": "Object",
+        "expected_type": "Object",
+        "status": "Valid"
+      },
+      {
+        "column": "region",
+        "detected_type": "Object",
+        "expected_type": "Object",
+        "status": "Valid"
+      },
+      {
+        "column": "charges",
+        "detected_type": "Float",
+        "expected_type": "Float",
+        "status": "Valid"
+      }
+    ],
+    "invalid_values": {
+      "empty_strings_count": 0,
+      "null_values_count": 0,
+      "infinite_values_count": 0,
+      "nan_values_count": 0,
+      "details_by_column": []
+    },
+    "constant_columns": [],
+    "high_cardinality_columns": [],
+    "mixed_data_types": [],
+    "column_statistics": [
+      {
+        "column": "age",
+        "data_type": "Integer",
+        "unique_values": 47,
+        "missing_values": 0,
+        "missing_percentage": 0,
+        "min": 18,
+        "max": 64,
+        "mean": 39.207,
+        "median": 39,
+        "std_dev": 14.05
+      },
+      {
+        "column": "sex",
+        "data_type": "Object",
+        "unique_values": 2,
+        "missing_values": 0,
+        "missing_percentage": 0,
+        "min": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "std_dev": null
+      },
+      {
+        "column": "bmi",
+        "data_type": "Float",
+        "unique_values": 548,
+        "missing_values": 0,
+        "missing_percentage": 0,
+        "min": 15.96,
+        "max": 53.13,
+        "mean": 30.6634,
+        "median": 30.4,
+        "std_dev": 6.0982
+      },
+      {
+        "column": "children",
+        "data_type": "Integer",
+        "unique_values": 6,
+        "missing_values": 0,
+        "missing_percentage": 0,
+        "min": 0,
+        "max": 5,
+        "mean": 1.0949,
+        "median": 1,
+        "std_dev": 1.2055
+      },
+      {
+        "column": "smoker",
+        "data_type": "Object",
+        "unique_values": 2,
+        "missing_values": 0,
+        "missing_percentage": 0,
+        "min": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "std_dev": null
+      },
+      {
+        "column": "region",
+        "data_type": "Object",
+        "unique_values": 4,
+        "missing_values": 0,
+        "missing_percentage": 0,
+        "min": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "std_dev": null
+      },
+      {
+        "column": "charges",
+        "data_type": "Float",
+        "unique_values": 1337,
+        "missing_values": 0,
+        "missing_percentage": 0,
+        "min": 1121.8739,
+        "max": 63770.42801,
+        "mean": 13270.4223,
+        "median": 9382.033,
+        "std_dev": 12110.0112
+      }
+    ]
+  },
+  "issues": [
+    {
+      "type": "duplicate_rows",
+      "severity": "warning",
+      "message": "1 duplicate rows found in dataset (0.07%).",
+      "recommendation": "Review and remove duplicate rows to ensure clean dataset records.",
+      "count": 1
+    },
+    {
+      "type": "outliers",
+      "severity": "warning",
+      "message": "Found potential outliers in 2 column(s): bmi, charges.",
+      "recommendation": "Inspect extreme values and determine whether capping or removal is appropriate.",
+      "count": 2
+    }
+  ]
+}

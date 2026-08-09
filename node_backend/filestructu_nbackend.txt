@@ -15,8 +15,6 @@ node_backend/
 │   │   ├── AuthController.js
 │   │   ├── UserController.js
 │   │   ├── WorkspaceController.js
-##  │   ├── MemberController.js             #"remove "
-##  │   ├── InvitationController.js         #"remove "
 │   │   ├── ProjectController.js
 │   │   ├── DatasetController.js
 │   │   ├── ExperimentController.js
@@ -29,8 +27,6 @@ node_backend/
 │   │   ├── AuthService.js
 │   │   ├── UserService.js
 │   │   ├── WorkspaceService.js
-│   │   ├── MemberService.js            #"remove"
-│   │   ├── InvitationService.js        #"remove"
 │   │   ├── ProjectService.js
 │   │   ├── DatasetService.js
 │   │   ├── DjangoClient.js
@@ -44,8 +40,6 @@ node_backend/
 │   │   ├── AuthRepository.js
 │   │   ├── UserRepository.js
 │   │   ├── WorkspaceRepository.js
-│   │   ├── MemberRepository.js         #"remove"
-│   │   ├── InvitationRepository.js     #"remove"
 │   │   ├── ProjectRepository.js
 │   │   ├── DatasetRepository.js
 │   │   ├── ExperimentRepository.js
@@ -58,8 +52,6 @@ node_backend/
 │   │   ├── auth.routes.js
 │   │   ├── user.routes.js
 │   │   ├── workspace.routes.js
-│   │   ├── member.routes.js            #"remove"
-│   │   ├── invitation.routes.js        #"remove"
 │   │   ├── project.routes.js
 │   │   ├── dataset.routes.js
 │   │   ├── experiment.routes.js
@@ -83,8 +75,6 @@ node_backend/
 │   │  ├── auth.validator.js
 │   │  ├── user.validator.js
 │   │  ├── workspace.validator.js
-│   │  ├── member.validator.js          #"remove"
-│   │  ├── invitation.validator.js      #"remove"
 │   │  ├── project.validator.js
 │   │  ├── dataset.validator.js
 │   │  ├── experiment.validator.js
@@ -97,8 +87,6 @@ node_backend/
 │   │   ├── Auth.js
 │   │   ├── User.js
 │   │   ├── Workspace.js    
-│   │   ├── Member.js           #"remove"
-│   │   ├── Invitation.js       #"remove" 
 │   │   ├── Project.js
 │   │   ├── Dataset.js
 │   │   ├── DatasetVersion.js

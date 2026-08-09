@@ -1,0 +1,162 @@
+/* ============================================================
+   StatCard CSS
+   ============================================================ */
+
+.stat-card {
+  position: relative;
+  border-radius: var(--radius-2xl);
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  overflow: hidden;
+  cursor: default;
+  transition: transform var(--transition-spring), box-shadow var(--transition-smooth);
+}
+
+.stat-card--clickable {
+  cursor: pointer;
+}
+
+/* ── Icon ── */
+.stat-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--transition-spring);
+}
+
+.stat-card:hover .stat-card-icon {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.stat-card-icon--primary { background: var(--color-primary-light); color: var(--color-primary); }
+.stat-card-icon--accent  { background: var(--color-accent-light);  color: var(--color-accent); }
+.stat-card-icon--success { background: var(--color-success-light); color: var(--color-success); }
+.stat-card-icon--warning { background: var(--color-warning-light); color: var(--color-warning); }
+.stat-card-icon--error   { background: var(--color-error-light);   color: var(--color-error); }
+
+.stat-card-icon-skeleton {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-sm);
+  background: var(--border-medium);
+  animation: shimmer 1.5s infinite;
+}
+
+/* ── Body ── */
+.stat-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+/* ── Value ── */
+.stat-card-value {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.stat-card-number {
+  font-size: 22px;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.stat-card-number--long {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.stat-card-sub {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ── Footer ── */
+.stat-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.stat-card-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-card-trend {
+  font-size: var(--font-size-xs);
+  color: var(--color-success);
+  font-weight: var(--font-weight-semibold);
+  background: var(--color-success-light);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* ── Skeleton ── */
+.stat-card-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.stat-card-skeleton-value {
+  height: 32px;
+  width: 64px;
+  border-radius: var(--radius-md);
+  background: var(--border-subtle);
+  animation: shimmer 1.5s infinite;
+}
+
+.stat-card-skeleton-label {
+  height: 12px;
+  width: 80px;
+  border-radius: var(--radius-sm);
+  background: var(--border-subtle);
+  animation: shimmer 1.5s infinite 0.15s;
+}
+
+/* ── Accent Line ── */
+.stat-card-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
+  opacity: 0;
+  transition: opacity var(--transition-smooth);
+}
+
+.stat-card:hover .stat-card-accent {
+  opacity: 1;
+}
+
+.stat-card-accent--primary { background: linear-gradient(90deg, var(--color-primary), var(--color-accent)); }
+.stat-card-accent--accent  { background: linear-gradient(90deg, var(--color-accent), #A855F7); }
+.stat-card-accent--success { background: linear-gradient(90deg, var(--color-success), #16A34A); }
+.stat-card-accent--warning { background: linear-gradient(90deg, var(--color-warning), #D97706); }
+.stat-card-accent--error   { background: linear-gradient(90deg, var(--color-error),   #DC2626); }
+
+/* Shimmer keyframe (if not in animations.css) */
+@keyframes shimmer {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}

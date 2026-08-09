@@ -1,0 +1,275 @@
+{
+    "dataset_summary": {
+        "total_rows": 506,
+        "total_columns": 14,
+        "numerical_columns": 14,
+        "categorical_columns": 0,
+        "boolean_columns": 0,
+        "date_columns": 0,
+        "text_columns": 0,
+        "missing_values": 4,
+        "duplicate_rows": 0
+    },
+    "dataset_statistics": {
+        "total_cells": 7084,
+        "empty_cells": 4,
+        "empty_cell_percentage": 0.06,
+        "duplicate_rows": 0,
+        "duplicate_percentage": 0.0,
+        "avg_missing_percentage": 0.06
+    },
+    "dataset_quality": {
+        "quality_score": 100,
+        "quality_badge": "Excellent",
+        "factors": {
+            "missing_cell_pct": 0.06,
+            "duplicate_row_pct": 0.0,
+            "empty_cells_count": 4
+        }
+    },
+    "data_type_distribution": {
+        "numeric": 14,
+        "categorical": 0,
+        "boolean": 0,
+        "date": 0,
+        "text": 0
+    },
+    "missing_value_analysis": {
+        "total_missing_values": 4,
+        "missing_percentage": 0.06,
+        "missing_by_column": [
+            {
+                "column": "zn",
+                "missing_count": 1,
+                "missing_percentage": 0.2
+            },
+            {
+                "column": "indus",
+                "missing_count": 1,
+                "missing_percentage": 0.2
+            },
+            {
+                "column": "rm",
+                "missing_count": 1,
+                "missing_percentage": 0.2
+            },
+            {
+                "column": "medv",
+                "missing_count": 1,
+                "missing_percentage": 0.2
+            },
+            {
+                "column": "crim",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "chas",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "nox",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "age",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "dis",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "rad",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "tax",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "ptratio",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "b",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            },
+            {
+                "column": "lstat",
+                "missing_count": 0,
+                "missing_percentage": 0.0
+            }
+        ]
+    },
+    "sample_data_preview": [
+        {
+            "crim": 0.0063,
+            "zn": 18.0,
+            "indus": 2.31,
+            "chas": 0.0,
+            "nox": 0.538,
+            "rm": 6.575,
+            "age": 65.2,
+            "dis": 4.09,
+            "rad": 1.0,
+            "tax": 296.0,
+            "ptratio": 15.3,
+            "b": 396.9,
+            "lstat": 4.98,
+            "medv": 24.0
+        },
+        {
+            "crim": 0.0273,
+            "zn": 0.0,
+            "indus": 7.07,
+            "chas": 0.0,
+            "nox": 0.469,
+            "rm": 6.421,
+            "age": 78.9,
+            "dis": 4.9671,
+            "rad": 2.0,
+            "tax": 242.0,
+            "ptratio": 17.8,
+            "b": 396.9,
+            "lstat": 9.14,
+            "medv": 21.6
+        },
+        {
+            "crim": 0.0273,
+            "zn": null,
+            "indus": null,
+            "chas": 0.469,
+            "nox": 7.185,
+            "rm": null,
+            "age": 4.9671,
+            "dis": 2.0,
+            "rad": 242.0,
+            "tax": 17.8,
+            "ptratio": 392.83,
+            "b": 4.03,
+            "lstat": 34.7,
+            "medv": null
+        },
+        {
+            "crim": 0.0324,
+            "zn": 0.0,
+            "indus": 2.18,
+            "chas": 0.0,
+            "nox": 0.458,
+            "rm": 6.998,
+            "age": 45.8,
+            "dis": 6.0622,
+            "rad": 3.0,
+            "tax": 222.0,
+            "ptratio": 18.7,
+            "b": 394.63,
+            "lstat": 2.94,
+            "medv": 33.4
+        },
+        {
+            "crim": 0.069,
+            "zn": 0.0,
+            "indus": 2.18,
+            "chas": 0.0,
+            "nox": 0.458,
+            "rm": 7.147,
+            "age": 54.2,
+            "dis": 6.0622,
+            "rad": 3.0,
+            "tax": 222.0,
+            "ptratio": 18.7,
+            "b": 396.9,
+            "lstat": 5.33,
+            "medv": 36.2
+        },
+        {
+            "crim": 0.0298,
+            "zn": 0.0,
+            "indus": 2.18,
+            "chas": 0.0,
+            "nox": 0.458,
+            "rm": 6.43,
+            "age": 58.7,
+            "dis": 6.0622,
+            "rad": 3.0,
+            "tax": 222.0,
+            "ptratio": 18.7,
+            "b": 394.12,
+            "lstat": 5.21,
+            "medv": 28.7
+        },
+        {
+            "crim": 0.0883,
+            "zn": 12.5,
+            "indus": 7.87,
+            "chas": 0.0,
+            "nox": 0.524,
+            "rm": 6.012,
+            "age": 66.6,
+            "dis": 5.5605,
+            "rad": 5.0,
+            "tax": 311.0,
+            "ptratio": 15.2,
+            "b": 395.6,
+            "lstat": 12.43,
+            "medv": 22.9
+        },
+        {
+            "crim": 0.1446,
+            "zn": 12.5,
+            "indus": 7.87,
+            "chas": 0.0,
+            "nox": 0.524,
+            "rm": 6.172,
+            "age": 96.1,
+            "dis": 5.9505,
+            "rad": 5.0,
+            "tax": 311.0,
+            "ptratio": 15.2,
+            "b": 396.9,
+            "lstat": 19.15,
+            "medv": 27.1
+        },
+        {
+            "crim": 0.2112,
+            "zn": 12.5,
+            "indus": 7.87,
+            "chas": 0.0,
+            "nox": 0.524,
+            "rm": 5.631,
+            "age": 100.0,
+            "dis": 6.0821,
+            "rad": 5.0,
+            "tax": 311.0,
+            "ptratio": 15.2,
+            "b": 386.63,
+            "lstat": 29.93,
+            "medv": 16.5
+        },
+        {
+            "crim": 0.17,
+            "zn": 12.5,
+            "indus": 7.87,
+            "chas": 0.0,
+            "nox": 0.524,
+            "rm": 6.004,
+            "age": 85.9,
+            "dis": 6.5921,
+            "rad": 5.0,
+            "tax": 311.0,
+            "ptratio": 15.2,
+            "b": 386.71,
+            "lstat": 17.1,
+            "medv": 18.9
+        }
+    ]
+}

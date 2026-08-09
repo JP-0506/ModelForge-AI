@@ -54,6 +54,12 @@ class UserService {
       throw error;
     }
 
+    if (currentPassword === newPassword) {
+      const error = new Error("New password cannot be the same as the current password.");
+      error.statusCode = 400;
+      throw error;
+    }
+
     // Hash New Password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 

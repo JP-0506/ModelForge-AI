@@ -1,0 +1,175 @@
+/* ============================================================
+   Navbar CSS — Sleek Single-Row Floating Glass Bar
+   ============================================================ */
+
+.navbar {
+  position: fixed;
+  top: var(--space-4);
+  left: calc(var(--sidebar-width) + var(--space-4) + var(--space-4));
+  right: var(--space-4);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-lg);
+  padding: 0 var(--space-6);
+  z-index: var(--z-sticky);
+}
+
+/* ── Left Side ── */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.navbar-menu-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.navbar-menu-btn:hover {
+  background: var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.hidden-desktop {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .hidden-desktop {
+    display: flex;
+  }
+}
+
+/* ── Breadcrumb ── */
+.navbar-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.navbar-breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.navbar-breadcrumb-sep {
+  color: var(--text-tertiary);
+  margin: 0 2px;
+}
+
+.navbar-breadcrumb-link {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.navbar-breadcrumb-link:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.navbar-breadcrumb-current {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+  padding: 3px 8px;
+}
+
+/* ── Right Actions ── */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.navbar-icon-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1.5px solid var(--border-subtle);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.navbar-icon-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-subtle);
+  border-color: var(--border-medium);
+}
+
+.navbar-notification-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 2px solid var(--bg-base);
+}
+
+.navbar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.30);
+  transition: transform var(--transition-spring), box-shadow var(--transition-smooth);
+  user-select: none;
+}
+
+.navbar-avatar:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.40);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .navbar {
+    left: var(--space-4);
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    padding: 0 var(--space-4);
+  }
+}

@@ -38,7 +38,11 @@ class DataSplitter:
 
             y = dataframe[target_column]
 
-            stratify = y if problem_type == "classification" else None
+            stratify = None
+            if problem_type == "classification" and y is not None:
+                value_counts = y.value_counts()
+                if (value_counts >= 2).all():
+                    stratify = y
 
             (
                 X_train,

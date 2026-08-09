@@ -52,16 +52,9 @@ class MLComparisonService {
                 projectId,
             );
 
-        if (
-            !experiments.length
-        ) {
-            throw new Error(
-                "No completed experiments found.",
-            );
-        }
-
-        return experiments;
+        return experiments || [];
     }
+
 
     // ===================================================
     // Build Comparison Request
@@ -125,7 +118,7 @@ class MLComparisonService {
             if (
                 !trainedModel
             ) {
-                continue;
+                // Fallback to experiment metadata even if trainedModel doc is missing
             }
 
             models.push(
@@ -133,14 +126,41 @@ class MLComparisonService {
                     experiment_id:
                         experiment._id.toString(),
 
+                    experiment_name:
+                        experiment.experiment_name || `Experiment ${experiment._id}`,
+
                     algorithm:
                         experiment.algorithm,
 
                     model_name:
-                        trainedModel.model_name,
+                        trainedModel?.model_name || experiment.algorithm,
 
                     evaluation:
-                        experiment.evaluation,
+                        experiment.evaluation || {},
+
+                    cross_validation:
+                        experiment.cross_validation || {},
+
+                    training_time:
+                        experiment.training_time || 0.0,
+
+                    prediction_time:
+                        0.01,
+
+                    model_size:
+                        trainedModel?.model_size || 0,
+
+                    parameters:
+                        experiment.parameters || {},
+
+                    target_column:
+                        experiment.target_column || "N/A",
+
+                    dataset_version:
+                        experiment.dataset_version_id?.toString() || "v1",
+
+                    status:
+                        experiment.status || "completed",
                 },
             );
         }
@@ -152,6 +172,7 @@ class MLComparisonService {
             models,
         };
     }
+
 
     // ===================================================
     // Compare Models Using Django
@@ -211,16 +232,15 @@ class MLComparisonService {
                     experiments,
                 );
 
-            // ==========================================
-            // Validate Models
-            // ==========================================
-
-            if (
-                !comparisonRequest.models.length
-            ) {
-                throw new Error(
-                    "No trained models available for comparison.",
-                );
+            if (comparisonRequest.models.length < 2) {
+                return {
+                    project_id: projectId,
+                    problem_type: project.problem_type,
+                    comparison_metric: "n/a",
+                    total_models: comparisonRequest.models.length,
+                    leaderboard: comparisonRequest.models.map((m, idx) => ({ ...m, rank: idx + 1, score: 0, is_best_model: idx === 0 })),
+                    best_model: null,
+                };
             }
 
             // ==========================================
@@ -231,6 +251,7 @@ class MLComparisonService {
                 await this.compareUsingDjango(
                     comparisonRequest,
                 );
+
 
             // ==========================================
             // Extract Leaderboard
