@@ -50,8 +50,6 @@ frontend/dist/
 frontend/.vite/
 frontend/coverage/
 # Ignore Node package files
-frontend/package.json
-frontend/package-lock.json
 frontend/**/*.txt
 frontend/**/*.md
 
