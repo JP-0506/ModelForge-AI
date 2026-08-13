@@ -98,6 +98,10 @@ import { Resend } from "resend";
 
 class EmailService {
   constructor() {
+    if (!process.env.RESEND_API_KEY) {
+      console.warn("⚠️ RESEND_API_KEY is not configured.");
+    }
+
     this.resend = new Resend(process.env.RESEND_API_KEY);
   }
 
@@ -107,8 +111,9 @@ class EmailService {
    * @param {string} otp - 6-digit numeric OTP code
    */
   async sendOTPEmail(toEmail, otp) {
-    const fromEmail =
-      process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+    // Free Resend testing sender.
+    // Use a verified custom domain later for production.
+    const fromEmail = "onboarding@resend.dev";
 
     const htmlContent = `
       <div style="
@@ -229,8 +234,10 @@ class EmailService {
       }
 
       console.log(
-        `✅ Password Reset OTP sent successfully to ${toEmail}. Message ID: ${data?.id}`
+        `✅ Password Reset OTP sent successfully to ${toEmail}.`
       );
+
+      console.log(`📧 Resend Message ID: ${data?.id}`);
 
       return {
         messageId: data?.id,
