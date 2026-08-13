@@ -19,6 +19,7 @@
   "author": "Jaymeen Panchal",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1109.0",
     "axios": "^1.18.1",
     "bcrypt": "^6.0.0",
     "compression": "^1.8.1",
@@ -33,6 +34,7 @@
     "morgan": "^1.11.0",
     "multer": "^2.2.0",
     "nodemailer": "^9.0.3",
+    "resend": "^6.19.0",
     "uuid": "^14.0.1",
     "winston": "^3.19.0"
   },
