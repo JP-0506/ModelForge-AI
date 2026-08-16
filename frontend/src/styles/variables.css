@@ -31,6 +31,7 @@
   --bg-overlay: rgba(255, 255, 255, 0.45);
   --bg-subtle: rgba(245, 247, 250, 0.90);
   --bg-input: rgba(255, 255, 255, 0.70);
+  --bg-input-solid: #FFFFFF;
 
   /* ── Text ── */
   --text-primary: #111827;
@@ -176,6 +177,7 @@
   --bg-overlay: rgba(15, 23, 42, 0.70);
   --bg-subtle: rgba(30, 41, 59, 0.50);
   --bg-input: rgba(30, 41, 59, 0.70);
+  --bg-input-solid: #1E293B;
 
   --text-primary: #F8FAFC;
   --text-secondary: #94A3B8;
