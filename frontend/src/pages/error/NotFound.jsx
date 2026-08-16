@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Home, Cpu } from 'lucide-react';
 import Button from '../../components/common/Button/Button';
+import logo from '../../assets/logo.png';
 import './NotFound.css';
 
 const NotFound = () => {
@@ -22,7 +23,7 @@ const NotFound = () => {
         transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
       >
         <div className="notfound-icon">
-          <Cpu size={32} strokeWidth={1} />
+          <img src={logo} alt="ModelForge AI" className="notfound-logo-img" />
         </div>
         <div className="notfound-code">404</div>
         <h1 className="notfound-title">Page not found</h1>

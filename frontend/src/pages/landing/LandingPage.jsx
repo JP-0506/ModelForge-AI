@@ -10,6 +10,7 @@ import {
   Check, Star,
 } from 'lucide-react';
 import Button from '../../components/common/Button/Button';
+import logo from '../../assets/logo.png';
 import './Landing.css';
 
 // ── Animation variants ──
@@ -76,7 +77,7 @@ const LandingPage = () => {
         <div className="landing-nav-inner">
           <div className="landing-nav-logo">
             <div className="landing-nav-logo-icon">
-              <Cpu size={18} strokeWidth={1.5} />
+              <img src={logo} alt="ModelForge AI" className="landing-nav-logo-img" />
             </div>
             <span className="landing-nav-logo-text">ModelForge AI</span>
           </div>
@@ -312,7 +313,7 @@ const LandingPage = () => {
       <footer className="landing-footer">
         <div className="landing-footer-inner">
           <div className="landing-footer-logo">
-            <Cpu size={16} strokeWidth={1.5} />
+            <img src={logo} alt="ModelForge AI" className="landing-footer-logo-img" />
             <span>ModelForge AI</span>
           </div>
           <p className="landing-footer-copy">

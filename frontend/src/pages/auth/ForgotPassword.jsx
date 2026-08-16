@@ -8,6 +8,7 @@ import { Mail, Lock, Eye, EyeOff, KeyRound, CheckCircle2, ArrowLeft, Cpu } from 
 import authService from '../../services/authService';
 import Button from '../../components/common/Button/Button';
 import Input from '../../components/common/Input/Input';
+import logo from '../../assets/logo.png';
 import './Auth.css';
 const ForgotPassword = () => {
     const navigate = useNavigate();
@@ -106,7 +107,7 @@ const ForgotPassword = () => {
                 {/* Logo */}
                 <div className="auth-logo">
                     <div className="auth-logo-icon">
-                        <Cpu size={24} strokeWidth={1.5} />
+                        <img src={logo} alt="ModelForge AI Logo" className="auth-logo-img" />
                     </div>
                     <div className="auth-logo-text">
                         <span className="auth-logo-name">ModelForge AI</span>

@@ -16,6 +16,7 @@ import {
 import useAuth from '../../../hooks/useAuth';
 import { storage } from '../../../utils/storage';
 import { useState, useEffect } from 'react';
+import logo from '../../../assets/logo.png';
 import './Sidebar.css';
 
 const navItems = [
@@ -62,7 +63,7 @@ const Sidebar = () => {
       {/* ── Logo ── */}
       <div className="sidebar-logo">
         <div className="sidebar-logo-icon">
-          <Cpu size={20} strokeWidth={1.5} />
+          <img src={logo} alt="ModelForge AI" className="sidebar-logo-img" />
         </div>
         <div className="sidebar-logo-text">
           <span className="sidebar-logo-name">ModelForge</span>

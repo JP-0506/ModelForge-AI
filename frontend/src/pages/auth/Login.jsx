@@ -11,6 +11,7 @@ import useAuth from '../../hooks/useAuth';
 import Button from '../../components/common/Button/Button';
 import Input from '../../components/common/Input/Input';
 import { validationRules } from '../../utils/validators';
+import logo from '../../assets/logo.png';
 import './Auth.css';
 
 const Login = () => {
@@ -61,7 +62,7 @@ const Login = () => {
         {/* Logo */}
         <div className="auth-logo">
           <div className="auth-logo-icon">
-            <Cpu size={24} strokeWidth={1.5} />
+            <img src={logo} alt="ModelForge AI Logo" className="auth-logo-img" />
           </div>
           <div className="auth-logo-text">
             <span className="auth-logo-name">ModelForge AI</span>
